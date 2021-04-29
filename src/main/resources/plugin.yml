@@ -1,0 +1,10 @@
+name: ${name}
+main: ${main}
+version: ${version}
+authors: [ 'Thehrz' ]
+
+api-version: 1.16
+
+lib-download: true
+lib-version: ${libVersion}
+loader-version: ${loaderVersion}
