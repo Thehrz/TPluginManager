@@ -1,2 +1,9 @@
 Plugin:
-  Enabled: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin has been successfully loaded. The current plug-in version is &2{0}&r.'
+  Enabled: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin has been successfully loaded. The current plugin version is &2{0}&r.'
+Commands:
+  Enable: 'Enable a plugin'
+  Disable: 'Disable a plugin'
+  Menu: 'Open management menu'
+  Unknown: '&8[&3TPluginManager&8][&cWARN&8] &rPlugin &2{0}&r not found'
+Menu:
+  Not-Player: '&8[&3TPluginManager&8][&eWARN&8] &rYou are not a player, so you cannot open this menu.'
