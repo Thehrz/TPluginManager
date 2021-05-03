@@ -7,7 +7,7 @@ import io.izzel.taboolib.util.item.inventory.MenuBuilder
 import org.bukkit.entity.Player
 
 open class Menu(title: String, rows: Int = 6) {
-    private var menu: MenuBuilder = MenuBuilder.builder(TPluginManager.plugin)
+    protected var menu: MenuBuilder = MenuBuilder.builder(TPluginManager.plugin)
         .title(title)
         .rows(rows)
         .buildAsync {

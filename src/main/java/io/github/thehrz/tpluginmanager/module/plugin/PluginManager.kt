@@ -6,7 +6,9 @@ import org.bukkit.command.*
 import org.bukkit.event.HandlerList
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.PluginManager
+import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.annotations.NotNull
+
 
 object PluginManager {
     private val pluginsMap: MutableMap<String, Plugin> = HashMap()
@@ -41,6 +43,11 @@ object PluginManager {
         return Bukkit.getPluginManager().plugins.map { plugin: Plugin -> plugin.name }
     }
 
+    /**
+     * 获取插件名和插件实例的映射
+     *
+     * @return 插件名和插件实例的映射
+     */
     fun getPlugninMap(): MutableMap<String, Plugin> {
         getPluginsList().forEach {
             pluginsMap[it.name] = it
@@ -71,37 +78,18 @@ object PluginManager {
         while (iterator.hasNext()) {
             iterator.let { mutableIterator ->
                 mutableIterator.next().value.let {
-                    if (it is PluginCommand && it.plugin === plugin) {
-                        it.unregister(commandMap as @NotNull CommandMap)
-                        mutableIterator.remove()
+                    // JavaPlugin.getProvidingPlugin(it.javaClass) 可以获取这个类属于什么插件实例
+                    // 但是还有一种注册命令的方法是直接操作commandMap 这种方法就不属于PluginCommand了 也就不会返回插件实例 会抛出异常
+                    try {
+                        if ((it is PluginCommand && it.plugin == plugin) || JavaPlugin.getProvidingPlugin(it.javaClass) == plugin) {
+                            it.unregister(commandMap as @NotNull CommandMap)
+                            mutableIterator.remove()
+                        }
+                    } catch (e: Exception) {
                     }
                 }
             }
         }
-
-
-//        Reflex(commandMap::class.java).set("")
-
-//        knownCommands.entries.iterator().forEach { mutableEntry ->
-//            mutableEntry.value.let {
-//                if (it is PluginCommand && it.plugin == plugin) {
-//                    it.unregister(commandMap as @NotNull CommandMap)
-//                }
-//            }
-//        }
-
-
-//        for (command in knownCommands.entries.iterator()) {
-//            command.value.let {
-//                if (it is PluginCommand && it.plugin == plugin) {
-//                    it.unregister(commandMap as @NotNull CommandMap)
-//
-//                }
-//            }
-//
-//        }
-
-
     }
 
     /**
@@ -142,6 +130,4 @@ object PluginManager {
             TLocale.sendTo(sender, "Commands.Unknown", name)
         }
     }
-
-
 }

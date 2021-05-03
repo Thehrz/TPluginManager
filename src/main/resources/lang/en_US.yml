@@ -3,7 +3,9 @@ Plugin:
 Commands:
   Enable: 'Enable a plugin'
   Disable: 'Disable a plugin'
-  Menu: 'Open management menu'
+  Menu: 'Open main menu'
   Unknown: '&8[&3TPluginManager&8][&cWARN&8] &rPlugin &2{0}&r not found'
 Menu:
   Not-Player: '&8[&3TPluginManager&8][&eWARN&8] &rYou are not a player, so you cannot open this menu.'
+  Main-Menu: 'TPluginManager Main Menu'
+  Plugins-List: 'List of plugins'
