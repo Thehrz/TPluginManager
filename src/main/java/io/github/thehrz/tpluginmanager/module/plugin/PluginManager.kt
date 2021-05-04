@@ -3,16 +3,12 @@ package io.github.thehrz.tpluginmanager.module.plugin
 import io.izzel.taboolib.module.locale.TLocale
 import org.bukkit.Bukkit
 import org.bukkit.command.*
-import org.bukkit.event.HandlerList
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.PluginManager
 import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.annotations.NotNull
 
-
 object PluginManager {
-    private val pluginsMap: MutableMap<String, Plugin> = HashMap()
-
     /**
      * 通过插件名获取插件实例
      *
@@ -49,10 +45,7 @@ object PluginManager {
      * @return 插件名和插件实例的映射
      */
     fun getPlugninMap(): MutableMap<String, Plugin> {
-        getPluginsList().forEach {
-            pluginsMap[it.name] = it
-        }
-        return pluginsMap
+        return getPluginsList().associateBy { it.name }.toMutableMap()
     }
 
     /**
@@ -97,11 +90,11 @@ object PluginManager {
      *
      * @param plugin 要关闭的插件
      */
-    fun disablePlugin(plugin: Plugin) {
+    fun disablePlugin(plugin: Plugin, sender: CommandSender = Bukkit.getConsoleSender()) {
         // Bukkit 关闭插件
         Bukkit.getPluginManager().disablePlugin(plugin)
-        // 注销监听器
-        HandlerList.unregisterAll(plugin)
+        TLocale.sendTo(sender, "Commands.Disable.Bukkit", plugin.name)
+
         // 从插件列表删除
         getPluginsList().remove(plugin)
 
@@ -112,9 +105,11 @@ object PluginManager {
         } as MutableMap<String, Plugin>
 
         lookupNames.remove(plugin.description.name)
+        TLocale.sendTo(sender, "Commands.Disable.PluginsList", plugin.name)
 
         // 注销命令
         unregisterCommand(Bukkit.getPluginManager(), plugin)
+        TLocale.sendTo(sender, "Commands.Disable.Command", plugin.name)
     }
 
     /**
@@ -125,7 +120,7 @@ object PluginManager {
      */
     fun disablePlugin(name: String, sender: CommandSender) {
         getPlugin(name)?.let {
-            disablePlugin(it)
+            disablePlugin(it, sender)
         } ?: let {
             TLocale.sendTo(sender, "Commands.Unknown", name)
         }

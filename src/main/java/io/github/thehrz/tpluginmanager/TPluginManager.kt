@@ -13,6 +13,6 @@ object TPluginManager : Plugin() {
 
     override fun onEnable() {
         BMetrics(plugin, 11184)
-        TLocale.sendToConsole("Plugin.Enabled", plugin.description.version)
+        TLocale.sendToConsole("Plugin.Enabled", plugin.description.version, KotlinVersion.CURRENT.toString())
     }
 }
