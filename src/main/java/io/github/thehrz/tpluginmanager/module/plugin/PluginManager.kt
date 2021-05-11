@@ -72,7 +72,7 @@ object PluginManager {
             iterator.let { mutableIterator ->
                 mutableIterator.next().value.let {
                     // JavaPlugin.getProvidingPlugin(it.javaClass) 可以获取这个类属于什么插件实例
-                    // 但是还有一种注册命令的方法是直接操作commandMap 这种方法就不属于PluginCommand了 也就不会返回插件实例 会抛出异常
+                    // 但是还有一种注册命令的方法是直接操作commandMap 这种方法命令实例就不属于PluginCommand了 也就不会返回插件实例 会抛出异常
                     try {
                         if ((it is PluginCommand && it.plugin == plugin) || JavaPlugin.getProvidingPlugin(it.javaClass) == plugin) {
                             it.unregister(commandMap as @NotNull CommandMap)
@@ -105,10 +105,12 @@ object PluginManager {
         } as MutableMap<String, Plugin>
 
         lookupNames.remove(plugin.description.name)
-        TLocale.sendTo(sender, "Commands.Disable.PluginsList", plugin.name)
+        TLocale.sendTo(sender, "Commands.Disable.Plugins-List", plugin.name)
 
         // 注销命令
         unregisterCommand(Bukkit.getPluginManager(), plugin)
+        TLocale.sendTo(sender, "Commands.Disable.Command", plugin.name)
+
         TLocale.sendTo(sender, "Commands.Disable.Command", plugin.name)
     }
 
@@ -121,6 +123,29 @@ object PluginManager {
     fun disablePlugin(name: String, sender: CommandSender) {
         getPlugin(name)?.let {
             disablePlugin(it, sender)
+        } ?: let {
+            TLocale.sendTo(sender, "Commands.Unknown", name)
+        }
+    }
+
+    /**
+     * 开启一个插件
+     *
+     * @param plugin 要开启的插件
+     */
+    fun enablePlugin(plugin: Plugin, sender: CommandSender) {
+        Bukkit.getPluginManager().enablePlugin(plugin)
+    }
+
+    /**
+     * 开启一个插件
+     *
+     * @param name 要开启的插件名
+     * @param sender 命令执行者
+     */
+    fun enablePlugin(name: String, sender: CommandSender) {
+        getPlugin(name)?.let {
+            enablePlugin(it, sender)
         } ?: let {
             TLocale.sendTo(sender, "Commands.Unknown", name)
         }

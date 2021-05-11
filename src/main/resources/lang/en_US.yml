@@ -5,11 +5,22 @@ Commands:
   Disable:
     Display: 'Disable a plugin'
     Bukkit: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been disable by Bukkit-API.'
-    PluginsList: '&8[&3TPluginManager&8][&bINFO&8] &rRemoved from the plugin list &2{0}&r'
-    Command: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r commands has been unregistered'
+    Plugins-List: '&8[&3TPluginManager&8][&bINFO&8] &rRemoved from the plugin list &2{0}&r.'
+    Command: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r commands has been unregistered.'
+    Finish: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r disable finish.'
   Menu: 'Open main menu'
-  Unknown: '&8[&3TPluginManager&8][&cWARN&8] &rPlugin &2{0}&r not found'
+  Unknown: '&8[&3TPluginManager&8][&cWARN&8] &rPlugin &2{0}&r not found.'
 Menu:
   Not-Player: '&8[&3TPluginManager&8][&eWARN&8] &rYou are not a player, so you cannot open this menu.'
-  Main-Menu: 'TPluginManager Main Menu'
+  Main-Menu:
+    Title: 'TPluginManager Main Menu'
+    Click-Optimize:
+      name: '&aClick optimize'
+      lore: '&7Click to optimize Server'
+    Plugins-List:
+      name: '&3List of plugins'
+      lore: '&7Quickly manage plugins'
+    Plugins-Log-List:
+      name: '&4Plugins log list'
+      lore: '&7This will be collected when the plugin throws an exception'
   Plugins-List: 'List of plugins'
