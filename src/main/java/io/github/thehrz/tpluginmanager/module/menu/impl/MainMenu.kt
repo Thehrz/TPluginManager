@@ -1,9 +1,9 @@
 package io.github.thehrz.tpluginmanager.module.menu.impl
 
 import io.github.thehrz.tpluginmanager.module.menu.Menu
+import io.izzel.taboolib.internal.xseries.XMaterial
 import io.izzel.taboolib.module.locale.TLocale
 import io.izzel.taboolib.util.item.ItemBuilder
-import io.izzel.taboolib.util.item.Items
 import org.bukkit.Material
 
 object MainMenu : Menu(TLocale.asString("Menu.Main-Menu.Title"), 3) {
@@ -14,9 +14,9 @@ object MainMenu : Menu(TLocale.asString("Menu.Main-Menu.Title"), 3) {
                 "# #@ @& &",
                 "###@@@&&&"
             )
-            .put('#', ItemBuilder(Items.asMaterial("LIGHT_BLUE_STAINED_GLASS_PANE")!!).name(" ").damage(5).build())
-            .put('@', ItemBuilder(Items.asMaterial("BLUE_STAINED_GLASS_PANE")!!).name(" ").damage(11).build())
-            .put('&', ItemBuilder(Items.asMaterial("ORANGE_STAINED_GLASS_PANE")!!).name(" ").damage(1).build())
+            .put('#', ItemBuilder(XMaterial.LIGHT_BLUE_STAINED_GLASS_PANE).name(" ").damage(5).build())
+            .put('@', ItemBuilder(XMaterial.BLUE_STAINED_GLASS_PANE).name(" ").damage(11).build())
+            .put('&', ItemBuilder(XMaterial.ORANGE_STAINED_GLASS_PANE).name(" ").damage(1).build())
             .buildAsync { inventory ->
                 inventory.setItem(
                     10,
