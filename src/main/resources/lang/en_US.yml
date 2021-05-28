@@ -23,4 +23,9 @@ Menu:
     Plugins-Log-List:
       name: '&4Plugins log list'
       lore: '&7This will be collected when the plugin throws an exception'
-  Plugins-List: 'List of plugins'
+  Plugins-List:
+    Title: 'List of plugins'
+    Version: '&aversion: {0}'
+    Authors: '&aauthors: {0}'
+    SoftDepend: '&asoftDepend: {0}'
+    Depend: '&depend: {0}'

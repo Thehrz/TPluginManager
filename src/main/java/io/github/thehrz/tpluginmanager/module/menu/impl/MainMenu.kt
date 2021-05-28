@@ -17,7 +17,7 @@ object MainMenu : Menu(TLocale.asString("Menu.Main-Menu.Title"), 3) {
             .put('#', ItemBuilder(XMaterial.LIGHT_BLUE_STAINED_GLASS_PANE).name(" ").damage(5).build())
             .put('@', ItemBuilder(XMaterial.BLUE_STAINED_GLASS_PANE).name(" ").damage(11).build())
             .put('&', ItemBuilder(XMaterial.ORANGE_STAINED_GLASS_PANE).name(" ").damage(1).build())
-            .buildAsync { inventory ->
+            .build { inventory ->
                 inventory.setItem(
                     10,
                     ItemBuilder(Material.REDSTONE).name(TLocale.asString("Menu.Main-Menu.Click-Optimize.name"))
