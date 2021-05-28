@@ -38,44 +38,7 @@ class PluginsListMenu(player: Player) : MenuLinked<PluginIcon>(player) {
     }
 
     override fun getSlots(): MutableList<Int> {
-        return mutableListOf(
-            9,
-            10,
-            11,
-            12,
-            13,
-            14,
-            15,
-            16,
-            17,
-            18,
-            19,
-            20,
-            21,
-            22,
-            23,
-            24,
-            25,
-            26,
-            27,
-            28,
-            29,
-            30,
-            31,
-            32,
-            33,
-            34,
-            35,
-            36,
-            37,
-            38,
-            39,
-            40,
-            41,
-            41,
-            43,
-            44
-        )
+        return mutableListOf(9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 41, 43, 44)
     }
 
     override fun onBuild(inv: Inventory) {

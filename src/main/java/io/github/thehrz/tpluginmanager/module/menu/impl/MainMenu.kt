@@ -14,9 +14,9 @@ object MainMenu : Menu(TLocale.asString("Menu.Main-Menu.Title"), 3) {
                 "# #@ @& &",
                 "###@@@&&&"
             )
-            .put('#', ItemBuilder(XMaterial.LIGHT_BLUE_STAINED_GLASS_PANE).name(" ").damage(5).build())
-            .put('@', ItemBuilder(XMaterial.BLUE_STAINED_GLASS_PANE).name(" ").damage(11).build())
-            .put('&', ItemBuilder(XMaterial.ORANGE_STAINED_GLASS_PANE).name(" ").damage(1).build())
+            .put('#', ItemBuilder(XMaterial.LIGHT_BLUE_STAINED_GLASS_PANE).name(" ").build())
+            .put('@', ItemBuilder(XMaterial.BLUE_STAINED_GLASS_PANE).name(" ").build())
+            .put('&', ItemBuilder(XMaterial.ORANGE_STAINED_GLASS_PANE).name(" ").build())
             .build { inventory ->
                 inventory.setItem(
                     10,
