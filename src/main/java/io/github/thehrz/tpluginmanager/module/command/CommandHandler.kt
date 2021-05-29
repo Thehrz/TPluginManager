@@ -31,7 +31,7 @@ class CommandHandler : BaseMainCommand() {
         }
 
         override fun getDescription(): String {
-            return TLocale.asString("Commands.Enable")
+            return TLocale.asString("Commands.Enable.Display")
         }
     }
 

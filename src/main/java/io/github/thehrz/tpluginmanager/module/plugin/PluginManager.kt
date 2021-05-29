@@ -106,10 +106,8 @@ object PluginManager {
         Bukkit.getPluginManager().disablePlugin(plugin)
         TLocale.sendTo(sender, "Commands.Disable.Bukkit", plugin.name)
 
-        // 从插件列表删除
         CommandHandler.disablePlugins.remove(plugin.name)
         CommandHandler.enablePlugins.add(plugin.name)
-        TLocale.sendTo(sender, "Commands.Disable.Plugins-List", plugin.name)
 
         // 注销命令
         unregisterCommand(Bukkit.getPluginManager(), plugin)
@@ -138,10 +136,14 @@ object PluginManager {
      * @param plugin 要开启的插件
      */
     fun enablePlugin(plugin: Plugin, sender: CommandSender) {
+        // Bukkit 开启插件
         Bukkit.getPluginManager().enablePlugin(plugin)
+        TLocale.sendTo(sender, "Commands.Enable.Bukkit", plugin.name)
 
         CommandHandler.disablePlugins.add(plugin.name)
         CommandHandler.enablePlugins.remove(plugin.name)
+
+        TLocale.sendTo(sender, "Commands.Enable.Finish", plugin.name)
     }
 
     /**

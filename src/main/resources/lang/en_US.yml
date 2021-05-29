@@ -1,11 +1,13 @@
 Plugin:
   Enabled: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin has been successfully loaded. The current plugin version is &2{0}&r, Kotlin version is &2{1}&r.'
 Commands:
-  Enable: 'Enable a plugin'
+  Enable:
+    Display: 'Enable a plugin'
+    Bukkit: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been enable by Bukkit-API.'
+    Finish: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r enable finish.'
   Disable:
     Display: 'Disable a plugin'
     Bukkit: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been disable by Bukkit-API.'
-    Plugins-List: '&8[&3TPluginManager&8][&bINFO&8] &rRemoved from the plugin list &2{0}&r.'
     Command: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r commands has been unregistered.'
     Finish: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r disable finish.'
   Menu: 'Open main menu'
