@@ -100,6 +100,37 @@ object PluginManager {
     }
 
     /**
+     * 开启一个插件
+     *
+     * @param plugin 要开启的插件
+     * @param sender 命令执行者
+     */
+    fun enablePlugin(plugin: Plugin, sender: CommandSender) {
+        // Bukkit 开启插件
+        Bukkit.getPluginManager().enablePlugin(plugin)
+        TLocale.sendTo(sender, "Commands.Enable.Bukkit", plugin.name)
+
+        CommandHandler.disablePlugins.add(plugin.name)
+        CommandHandler.enablePlugins.remove(plugin.name)
+
+        TLocale.sendTo(sender, "Commands.Enable.Finish", plugin.name)
+    }
+
+    /**
+     * 开启一个插件
+     *
+     * @param name 要开启的插件名
+     * @param sender 命令执行者
+     */
+    fun enablePlugin(name: String, sender: CommandSender = Bukkit.getConsoleSender()) {
+        getPlugin(name)?.let {
+            enablePlugin(it, sender)
+        } ?: let {
+            TLocale.sendTo(sender, "Commands.Unknown", name)
+        }
+    }
+
+    /**
      * 关闭一个插件
      *
      * @param plugin 要关闭的插件
@@ -129,37 +160,6 @@ object PluginManager {
     fun disablePlugin(name: String, sender: CommandSender) {
         getPlugin(name)?.let {
             disablePlugin(it, sender)
-        } ?: let {
-            TLocale.sendTo(sender, "Commands.Unknown", name)
-        }
-    }
-
-    /**
-     * 开启一个插件
-     *
-     * @param plugin 要开启的插件
-     * @param sender 命令执行者
-     */
-    fun enablePlugin(plugin: Plugin, sender: CommandSender) {
-        // Bukkit 开启插件
-        Bukkit.getPluginManager().enablePlugin(plugin)
-        TLocale.sendTo(sender, "Commands.Enable.Bukkit", plugin.name)
-
-        CommandHandler.disablePlugins.add(plugin.name)
-        CommandHandler.enablePlugins.remove(plugin.name)
-
-        TLocale.sendTo(sender, "Commands.Enable.Finish", plugin.name)
-    }
-
-    /**
-     * 开启一个插件
-     *
-     * @param name 要开启的插件名
-     * @param sender 命令执行者
-     */
-    fun enablePlugin(name: String, sender: CommandSender = Bukkit.getConsoleSender()) {
-        getPlugin(name)?.let {
-            enablePlugin(it, sender)
         } ?: let {
             TLocale.sendTo(sender, "Commands.Unknown", name)
         }
@@ -222,6 +222,12 @@ object PluginManager {
     }
 
 
+    /**
+     * 卸载一个插件
+     *
+     * @param plugin 要加载的插件
+     * @param sender 命令执行者
+     */
     fun unloadPlugin(plugin: Plugin, sender: CommandSender = Bukkit.getConsoleSender()) {
         disablePlugin(plugin)
         TLocale.sendTo(sender, "Commands.Unload.Disable", plugin.name)
@@ -232,6 +238,12 @@ object PluginManager {
         TLocale.sendTo(sender, "Commands.Unload.Plugins-List", plugin.name)
     }
 
+    /**
+     * 卸载一个插件
+     *
+     * @param name 要加载的插件名
+     * @param sender 命令执行者
+     */
     fun unloadPlugin(name: String, sender: CommandSender) {
         getPlugin(name)?.let {
             unloadPlugin(it, sender)
