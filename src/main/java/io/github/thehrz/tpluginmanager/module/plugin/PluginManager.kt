@@ -4,10 +4,12 @@ import io.github.thehrz.tpluginmanager.module.command.CommandHandler
 import io.izzel.taboolib.module.locale.TLocale
 import org.bukkit.Bukkit
 import org.bukkit.command.*
-import org.bukkit.plugin.Plugin
+import org.bukkit.plugin.*
 import org.bukkit.plugin.PluginManager
 import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.annotations.NotNull
+import java.io.File
+
 
 object PluginManager {
     var lookupNames: MutableMap<String, Plugin>
@@ -158,5 +160,32 @@ object PluginManager {
         } ?: let {
             TLocale.sendTo(sender, "Commands.Unknown", name)
         }
+    }
+
+    fun loadPlugin(pluginFile: File, sender: CommandSender) {
+        val plugin: Plugin?
+        try {
+            plugin = Bukkit.getPluginManager().loadPlugin(pluginFile)
+        } catch (e: InvalidDescriptionException) {
+            e.printStackTrace()
+            return
+        } catch (e: InvalidPluginException) {
+            e.printStackTrace()
+            return
+        } catch (e: UnknownDependencyException) {
+            e.printStackTrace()
+            return
+        }
+
+        plugin?.let {
+            it.onLoad()
+            enablePlugin(it, sender)
+        }
+    }
+
+    fun loadPlugin(name: String, sender: CommandSender = Bukkit.getConsoleSender()) {
+        val dir = File("plugins")
+
+        val pluginFile = File(dir, "$name.jar")
     }
 }

@@ -55,6 +55,31 @@ class CommandHandler : BaseMainCommand() {
         }
     }
 
+    @SubCommand(permission = "load")
+    val load: BaseSubCommand = object : BaseSubCommand() {
+        override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
+            PluginManager.loadPlugin(args[0], sender)
+        }
+
+        override fun getDescription(): String {
+            return TLocale.asString("Commands.Load.Display")
+        }
+    }
+
+    @SubCommand(permission = "unload")
+    val unload: BaseSubCommand = object : BaseSubCommand() {
+        override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
+        }
+
+        override fun getArguments(): Array<Argument> {
+            return arrayOf(Argument("plugin", true) { disablePlugins })
+        }
+
+        override fun getDescription(): String {
+            return TLocale.asString("Commands.Unload.Display")
+        }
+    }
+
     /**
      * menu命令
      *

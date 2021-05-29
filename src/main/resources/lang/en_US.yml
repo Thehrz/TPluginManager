@@ -10,6 +10,10 @@ Commands:
     Bukkit: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been disable by Bukkit-API.'
     Command: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r commands has been unregistered.'
     Finish: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r disable finish.'
+  Load:
+    Display: 'Load a plugin'
+  Unload:
+    Display: 'Unload a plugin'
   Menu: 'Open main menu'
   Unknown: '&8[&3TPluginManager&8][&cWARN&8] &rPlugin &2{0}&r not found.'
 Menu:
