@@ -11,9 +11,8 @@ import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.annotations.NotNull
 import java.io.File
 
-
 object PluginManager {
-    var lookupNames: MutableMap<String, Plugin>
+    private var lookupNames: MutableMap<String, Plugin>
 
     init {
         @Suppress("UNCHECKED_CAST")
@@ -195,7 +194,7 @@ object PluginManager {
     /**
      * 加载一个插件
      *
-     * @param pluginFile 要加载的插件名
+     * @param name 要加载的插件名
      * @param sender 命令执行者
      */
     fun loadPlugin(name: String, sender: CommandSender = Bukkit.getConsoleSender()) {
