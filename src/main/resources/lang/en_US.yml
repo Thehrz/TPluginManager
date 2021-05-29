@@ -12,10 +12,14 @@ Commands:
     Finish: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r disable finish.'
   Load:
     Display: 'Load a plugin'
+    Already-Running: '&8[&3TPluginManager&8][&eWARN&8] &rPlugin &2{0}&r is already running on this server.'
+    File-Found: '&8[&3TPluginManager&8][&bINFO&8] &rFile &2{0}&r has been found.'
   Unload:
     Display: 'Unload a plugin'
+    Disable: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been disable.'
+    Plugins-List: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been removed from the list of plugins.'
   Menu: 'Open main menu'
-  Unknown: '&8[&3TPluginManager&8][&cWARN&8] &rPlugin &2{0}&r not found.'
+  Unknown: '&8[&3TPluginManager&8][&eWARN&8] &rPlugin &2{0}&r not found.'
 Menu:
   Not-Player: '&8[&3TPluginManager&8][&eWARN&8] &rYou are not a player, so you cannot open this menu.'
   Main-Menu:

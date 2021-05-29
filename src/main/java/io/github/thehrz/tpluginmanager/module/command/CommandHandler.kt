@@ -61,6 +61,10 @@ class CommandHandler : BaseMainCommand() {
             PluginManager.loadPlugin(args[0], sender)
         }
 
+        override fun getArguments(): Array<Argument> {
+            return arrayOf(Argument("plugin", true) { listOf<String>() })
+        }
+
         override fun getDescription(): String {
             return TLocale.asString("Commands.Load.Display")
         }
@@ -69,6 +73,7 @@ class CommandHandler : BaseMainCommand() {
     @SubCommand(permission = "unload")
     val unload: BaseSubCommand = object : BaseSubCommand() {
         override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
+            PluginManager.unloadPlugin(args[0], sender)
         }
 
         override fun getArguments(): Array<Argument> {

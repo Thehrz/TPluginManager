@@ -1,5 +1,6 @@
 package io.github.thehrz.tpluginmanager.module.plugin
 
+import io.github.thehrz.tpluginmanager.TPluginManager
 import io.github.thehrz.tpluginmanager.module.command.CommandHandler
 import io.izzel.taboolib.module.locale.TLocale
 import org.bukkit.Bukkit
@@ -102,6 +103,7 @@ object PluginManager {
      * 关闭一个插件
      *
      * @param plugin 要关闭的插件
+     * @param sender 命令执行者
      */
     fun disablePlugin(plugin: Plugin, sender: CommandSender = Bukkit.getConsoleSender()) {
         // Bukkit 关闭插件
@@ -136,6 +138,7 @@ object PluginManager {
      * 开启一个插件
      *
      * @param plugin 要开启的插件
+     * @param sender 命令执行者
      */
     fun enablePlugin(plugin: Plugin, sender: CommandSender) {
         // Bukkit 开启插件
@@ -162,6 +165,12 @@ object PluginManager {
         }
     }
 
+    /**
+     * 加载一个插件
+     *
+     * @param pluginFile 要加载的插件文件
+     * @param sender 命令执行者
+     */
     fun loadPlugin(pluginFile: File, sender: CommandSender) {
         val plugin: Plugin?
         try {
@@ -183,9 +192,51 @@ object PluginManager {
         }
     }
 
+    /**
+     * 加载一个插件
+     *
+     * @param pluginFile 要加载的插件名
+     * @param sender 命令执行者
+     */
     fun loadPlugin(name: String, sender: CommandSender = Bukkit.getConsoleSender()) {
-        val dir = File("plugins")
+        getPlugin(name)?.let {
+            TLocale.sendTo(sender, "Commands.Load.Already-Running", name)
+        } ?: let {
+            val dir = File("plugins")
 
-        val pluginFile = File(dir, "$name.jar")
+            dir.listFiles()!!.forEach { file ->
+                if (file.name.endsWith(".jar")) {
+                    try {
+                        if (TPluginManager.plugin.pluginLoader.getPluginDescription(file).name == name) {
+                            TLocale.sendTo(sender, "Commands.Load.File-Found", file.name)
+                            return loadPlugin(file, sender)
+                        }
+                    } catch (e: InvalidDescriptionException) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        }
+
+        TLocale.sendTo(sender, "Commands.Unknown", name)
+    }
+
+
+    fun unloadPlugin(plugin: Plugin, sender: CommandSender = Bukkit.getConsoleSender()) {
+        disablePlugin(plugin)
+        TLocale.sendTo(sender, "Commands.Unload.Disable", plugin.name)
+
+        CommandHandler.disablePlugins.add(plugin.name)
+        getPluginsList().remove(plugin)
+        lookupNames.remove(plugin.name)
+        TLocale.sendTo(sender, "Commands.Unload.Plugins-List", plugin.name)
+    }
+
+    fun unloadPlugin(name: String, sender: CommandSender) {
+        getPlugin(name)?.let {
+            unloadPlugin(it, sender)
+        } ?: let {
+            TLocale.sendTo(sender, "Commands.Unknown", name)
+        }
     }
 }
