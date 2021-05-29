@@ -1,5 +1,6 @@
 package io.github.thehrz.tpluginmanager.module.plugin
 
+import io.github.thehrz.tpluginmanager.module.command.CommandHandler
 import io.izzel.taboolib.module.locale.TLocale
 import org.bukkit.Bukkit
 import org.bukkit.command.*
@@ -9,6 +10,16 @@ import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.annotations.NotNull
 
 object PluginManager {
+    var lookupNames: MutableMap<String, Plugin>
+
+    init {
+        @Suppress("UNCHECKED_CAST")
+        lookupNames = Bukkit.getPluginManager()::class.java.getDeclaredField("lookupNames").let {
+            it.isAccessible = true
+            it.get(Bukkit.getPluginManager())
+        } as MutableMap<String, Plugin>
+    }
+
     /**
      * 通过插件名获取插件实例
      *
@@ -96,22 +107,15 @@ object PluginManager {
         TLocale.sendTo(sender, "Commands.Disable.Bukkit", plugin.name)
 
         // 从插件列表删除
-        getPluginsList().remove(plugin)
-
-        @Suppress("UNCHECKED_CAST")
-        val lookupNames = Bukkit.getPluginManager()::class.java.getDeclaredField("lookupNames").let {
-            it.isAccessible = true
-            it.get(Bukkit.getPluginManager())
-        } as MutableMap<String, Plugin>
-
-        lookupNames.remove(plugin.description.name)
+        CommandHandler.disablePlugins.remove(plugin.name)
+        CommandHandler.enablePlugins.add(plugin.name)
         TLocale.sendTo(sender, "Commands.Disable.Plugins-List", plugin.name)
 
         // 注销命令
         unregisterCommand(Bukkit.getPluginManager(), plugin)
         TLocale.sendTo(sender, "Commands.Disable.Command", plugin.name)
 
-        TLocale.sendTo(sender, "Commands.Disable.Command", plugin.name)
+        TLocale.sendTo(sender, "Commands.Disable.Finish", plugin.name)
     }
 
     /**
@@ -135,6 +139,9 @@ object PluginManager {
      */
     fun enablePlugin(plugin: Plugin, sender: CommandSender) {
         Bukkit.getPluginManager().enablePlugin(plugin)
+
+        CommandHandler.disablePlugins.add(plugin.name)
+        CommandHandler.enablePlugins.remove(plugin.name)
     }
 
     /**
@@ -143,7 +150,7 @@ object PluginManager {
      * @param name 要开启的插件名
      * @param sender 命令执行者
      */
-    fun enablePlugin(name: String, sender: CommandSender) {
+    fun enablePlugin(name: String, sender: CommandSender = Bukkit.getConsoleSender()) {
         getPlugin(name)?.let {
             enablePlugin(it, sender)
         } ?: let {
