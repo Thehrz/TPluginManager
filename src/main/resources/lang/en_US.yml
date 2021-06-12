@@ -39,3 +39,7 @@ Menu:
     Authors: '&aauthors: {0}'
     SoftDepend: '&asoftDepend: {0}'
     Depend: '&depend: {0}'
+Service:
+  Auto-Load-Plugins:
+    Found: '&8[&3TPluginManager&8][&bINFO&8] &rThe plugin &2{0}&r, file name &2{1}&r, version &2{2}&r have been found, please use the command &2/tpm install {0}&r to install it.'
+    Load: '&8[&3TPluginManager&8][&bINFO&8] &rLoading plugin...'

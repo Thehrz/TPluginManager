@@ -1,2 +1,6 @@
 Options:
   Language: "en_US"
+
+Service:
+  Auto-Load-Plugins:
+    Enable: true
