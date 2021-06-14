@@ -19,11 +19,14 @@ taboolib {
 
 repositories {
     mavenCentral()
+    maven { url 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
+    maven { url 'https://repo.codemc.org/repository/maven-public' }
 }
 
 dependencies {
     implementation 'ink.ptms.core:v11600:11600:all'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+    implementation 'me.clip:placeholderapi:2.10.9'
     implementation fileTree(dir: 'libs', includes: ['*.jar'])
 }
 
