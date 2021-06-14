@@ -60,7 +60,7 @@ class PluginsListMenu(player: Player) : MenuLinked<PluginIcon>(player) {
     }
 
     override fun onClick(clickEvent: ClickEvent, pluginIcon: PluginIcon) {
-
+        PluginInfoMenu(pluginIcon).open(clickEvent.clicker)
     }
 
     override fun generateItem(player: Player, pluginIcon: PluginIcon, index: Int, slot: Int): ItemStack? {
