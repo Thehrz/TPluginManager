@@ -11,7 +11,9 @@ import org.bukkit.entity.Player
 @BaseCommand(name = "TPluginManager", aliases = ["tpm"], permission = "tpluginmanager.access")
 class CommandHandler : BaseMainCommand() {
     companion object {
+        // 已经关闭的插件
         val disablePlugins = PluginManager.getPluginsListString().toMutableList()
+        // 开启了的插件
         val enablePlugins = mutableListOf<String>()
     }
 
@@ -23,7 +25,10 @@ class CommandHandler : BaseMainCommand() {
     @SubCommand(permission = "enable")
     val enable: BaseSubCommand = object : BaseSubCommand() {
         override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
-            PluginManager.enablePlugin(args[0], sender)
+            if (PluginManager.enablePlugin(args[0], sender)) {
+                disablePlugins.add(args[0])
+                enablePlugins.remove(args[0])
+            }
         }
 
         override fun getArguments(): Array<Argument> {
@@ -43,7 +48,10 @@ class CommandHandler : BaseMainCommand() {
     @SubCommand(permission = "disable")
     val disable: BaseSubCommand = object : BaseSubCommand() {
         override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
-            PluginManager.disablePlugin(args[0], sender)
+            if (PluginManager.disablePlugin(args[0], sender)) {
+                disablePlugins.remove(args[0])
+                enablePlugins.add(args[0])
+            }
         }
 
         override fun getArguments(): Array<Argument> {
@@ -58,7 +66,9 @@ class CommandHandler : BaseMainCommand() {
     @SubCommand(permission = "load")
     val load: BaseSubCommand = object : BaseSubCommand() {
         override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
-            PluginManager.loadPlugin(args[0], sender)
+            if (PluginManager.loadPlugin(args[0], sender)) {
+                disablePlugins.add(args[0])
+            }
         }
 
         override fun getArguments(): Array<Argument> {
@@ -73,7 +83,9 @@ class CommandHandler : BaseMainCommand() {
     @SubCommand(permission = "unload")
     val unload: BaseSubCommand = object : BaseSubCommand() {
         override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
-            PluginManager.unloadPlugin(args[0], sender)
+            if (PluginManager.unloadPlugin(args[0], sender)) {
+                disablePlugins.remove(args[0])
+            }
         }
 
         override fun getArguments(): Array<Argument> {
@@ -82,6 +94,21 @@ class CommandHandler : BaseMainCommand() {
 
         override fun getDescription(): String {
             return TLocale.asString("Commands.Unload.Display")
+        }
+    }
+
+    @SubCommand(permission = "reload")
+    val reload: BaseSubCommand = object : BaseSubCommand() {
+        override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
+            PluginManager.reloadPlugin(args[0], sender)
+        }
+
+        override fun getArguments(): Array<Argument> {
+            return arrayOf(Argument("plugin", true) { disablePlugins })
+        }
+
+        override fun getDescription(): String {
+            return TLocale.asString("Commands.Reload.Display")
         }
     }
 

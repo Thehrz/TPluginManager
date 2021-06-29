@@ -18,6 +18,8 @@ Commands:
     Display: 'Unload a plugin'
     Disable: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been disable.'
     Plugins-List: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been removed from the list of plugins.'
+  Reload:
+    Display: 'Reload a plugin'
   Menu: 'Open main menu'
   Unknown: '&8[&3TPluginManager&8][&eWARN&8] &rPlugin &2{0}&r not found.'
 Menu:
@@ -30,9 +32,9 @@ Menu:
     Plugins-List:
       name: '&3List of plugins'
       lore: '&7Quickly manage plugins'
-    Plugins-Log-List:
-      name: '&4Plugins log list'
-      lore: '&7This will be collected when the plugin throws an exception'
+    Advanced-Tools:
+      name: '&4Advanced tools'
+      lore: '&7Contains some advanced tools'
   Plugins-List:
     Title: 'List of plugins'
     Version: '&aversion: {0}'

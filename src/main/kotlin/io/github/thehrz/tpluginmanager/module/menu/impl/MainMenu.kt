@@ -32,8 +32,8 @@ object MainMenu : Menu(TLocale.asString("Menu.Main-Menu.Title"), 3) {
 
                 inventory.setItem(
                     16,
-                    ItemBuilder(Material.BOOK).name(TLocale.asString("Menu.Main-Menu.Plugins-Log-List.name"))
-                        .lore("", TLocale.asString("Menu.Main-Menu.Plugins-Log-List.lore"), "").build()
+                    ItemBuilder(Material.BOOK).name(TLocale.asString("Menu.Main-Menu.Advanced-Tools.name"))
+                        .lore("", TLocale.asString("Menu.Main-Menu.Advanced-Tools.lore"), "").build()
                 )
             }
             .click { clickEvent ->
@@ -45,8 +45,8 @@ object MainMenu : Menu(TLocale.asString("Menu.Main-Menu.Title"), 3) {
                         // 插件列表
                         13 -> PluginsListMenu.open(clickEvent.clicker)
 
-                        // 插件日志列表
-                        16 -> PluginsLogsListMenu.open(clickEvent.clicker)
+                        // 高级工具集
+                        16 -> AdvancedToolsMenu.open(clickEvent.clicker)
                     }
                 }
             }

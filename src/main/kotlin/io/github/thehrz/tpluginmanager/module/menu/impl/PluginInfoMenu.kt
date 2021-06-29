@@ -15,7 +15,7 @@ class PluginInfoMenu(pluginIcon: PluginIcon) : Menu(pluginIcon.name, 4) {
                 "  ERUFW  ",
                 "         "
             )
-            .put('P', ItemBuilder(XMaterial.SKELETON_SKULL).skullOwner("").build())
+            .put('P', ItemBuilder(XMaterial.SKELETON_SKULL).name("&a${pluginIcon.name}").build())
             .put('S', ItemBuilder(XMaterial.COMPASS).name(TLocale.asString("Menu.Plugins-List.Info.Setting")).build())
             .put('#', ItemBuilder(XMaterial.ORANGE_STAINED_GLASS_PANE).name(" ").build())
             .put(
