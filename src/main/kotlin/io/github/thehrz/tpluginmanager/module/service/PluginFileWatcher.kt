@@ -1,6 +1,7 @@
 package io.github.thehrz.tpluginmanager.module.service
 
 import io.github.thehrz.tpluginmanager.TPluginManager
+import io.github.thehrz.tpluginmanager.module.command.CommandHandler
 import io.github.thehrz.tpluginmanager.module.plugin.PluginManager
 import io.izzel.taboolib.module.inject.TSchedule
 import io.izzel.taboolib.module.locale.TLocale
@@ -44,6 +45,8 @@ object PluginFileWatcher {
                     if (TPluginManager.config.getBoolean("Service.Auto-Load-Plugins.Enable")) {
                         TLocale.sendTo(Bukkit.getConsoleSender(), "Service.Auto-Load-Plugins.Load")
                         PluginManager.loadPlugin(pluginFile, Bukkit.getConsoleSender())
+                    } else {
+                        CommandHandler.loadPlugins.add(pluginDescription.name)
                     }
                 } catch (e: Exception) {
                 }

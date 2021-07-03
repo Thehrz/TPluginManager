@@ -23,7 +23,7 @@ Commands:
   Menu: 'Open main menu'
   Unknown: '&8[&3TPluginManager&8][&eWARN&8] &rPlugin &2{0}&r not found.'
 Menu:
-  Not-Player: '&8[&3TPluginManager&8][&eWARN&8] &rYou are not a player, so you cannot open this menu.'
+  Not-Player: '&8[&3TPluginManager&8][&eWARN&8] &rYou cannot open this menu.'
   Main-Menu:
     Title: 'TPluginManager Main Menu'
     Click-Optimize:
@@ -47,5 +47,5 @@ Menu:
       Disable: '&8Disable'
 Service:
   Auto-Load-Plugins:
-    Found: '&8[&3TPluginManager&8][&bINFO&8] &rThe plugin &2{0}&r, file name &2{1}&r, version &2{2}&r have been found, please use the command &2/tpm install {0}&r to install it.'
+    Found: '&8[&3TPluginManager&8][&bINFO&8] &rThe plugin &2{0}&r, file name &2{1}&r, version &2{2}&r have been found, please use the command &2/tpm load {0}&r to load it.'
     Load: '&8[&3TPluginManager&8][&bINFO&8] &rLoading plugin...'

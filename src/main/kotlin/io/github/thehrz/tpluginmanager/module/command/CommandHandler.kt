@@ -11,10 +11,12 @@ import org.bukkit.entity.Player
 @BaseCommand(name = "TPluginManager", aliases = ["tpm"], permission = "tpluginmanager.access")
 class CommandHandler : BaseMainCommand() {
     companion object {
+        // 已经开启的插件
+        val enablePlugins = PluginManager.getPluginsListString().toMutableList()
         // 已经关闭的插件
-        val disablePlugins = PluginManager.getPluginsListString().toMutableList()
-        // 开启了的插件
-        val enablePlugins = mutableListOf<String>()
+        val disablePlugins = mutableListOf<String>()
+        // 准备加载的插件
+        val loadPlugins = mutableListOf<String>()
     }
 
     /**
@@ -26,13 +28,13 @@ class CommandHandler : BaseMainCommand() {
     val enable: BaseSubCommand = object : BaseSubCommand() {
         override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
             if (PluginManager.enablePlugin(args[0], sender)) {
-                disablePlugins.add(args[0])
-                enablePlugins.remove(args[0])
+                enablePlugins.add(args[0])
+                disablePlugins.remove(args[0])
             }
         }
 
         override fun getArguments(): Array<Argument> {
-            return arrayOf(Argument("plugin", true) { enablePlugins })
+            return arrayOf(Argument("plugin", true) { disablePlugins })
         }
 
         override fun getDescription(): String {
@@ -49,13 +51,13 @@ class CommandHandler : BaseMainCommand() {
     val disable: BaseSubCommand = object : BaseSubCommand() {
         override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
             if (PluginManager.disablePlugin(args[0], sender)) {
-                disablePlugins.remove(args[0])
-                enablePlugins.add(args[0])
+                enablePlugins.remove(args[0])
+                disablePlugins.add(args[0])
             }
         }
 
         override fun getArguments(): Array<Argument> {
-            return arrayOf(Argument("plugin", true) { disablePlugins })
+            return arrayOf(Argument("plugin", true) { enablePlugins })
         }
 
         override fun getDescription(): String {
@@ -67,12 +69,13 @@ class CommandHandler : BaseMainCommand() {
     val load: BaseSubCommand = object : BaseSubCommand() {
         override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
             if (PluginManager.loadPlugin(args[0], sender)) {
-                disablePlugins.add(args[0])
+                loadPlugins.remove(args[0])
+                enablePlugins.add(args[0])
             }
         }
 
         override fun getArguments(): Array<Argument> {
-            return arrayOf(Argument("plugin", true) { listOf<String>() })
+            return arrayOf(Argument("plugin", true) { loadPlugins })
         }
 
         override fun getDescription(): String {
@@ -84,12 +87,12 @@ class CommandHandler : BaseMainCommand() {
     val unload: BaseSubCommand = object : BaseSubCommand() {
         override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
             if (PluginManager.unloadPlugin(args[0], sender)) {
-                disablePlugins.remove(args[0])
+                enablePlugins.remove(args[0])
             }
         }
 
         override fun getArguments(): Array<Argument> {
-            return arrayOf(Argument("plugin", true) { disablePlugins })
+            return arrayOf(Argument("plugin", true) { enablePlugins })
         }
 
         override fun getDescription(): String {
@@ -104,7 +107,7 @@ class CommandHandler : BaseMainCommand() {
         }
 
         override fun getArguments(): Array<Argument> {
-            return arrayOf(Argument("plugin", true) { disablePlugins })
+            return arrayOf(Argument("plugin", true) { enablePlugins })
         }
 
         override fun getDescription(): String {

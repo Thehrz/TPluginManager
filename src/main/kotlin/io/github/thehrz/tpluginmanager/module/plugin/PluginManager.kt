@@ -237,7 +237,7 @@ object PluginManager {
         disablePlugin(plugin)
         TLocale.sendTo(sender, "Commands.Unload.Disable", plugin.name)
 
-        CommandHandler.disablePlugins.add(plugin.name)
+        CommandHandler.enablePlugins.add(plugin.name)
         getPluginsList().remove(plugin)
         lookupNames.remove(plugin.name)
         TLocale.sendTo(sender, "Commands.Unload.Plugins-List", plugin.name)
