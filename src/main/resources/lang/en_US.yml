@@ -26,9 +26,9 @@ Menu:
   Not-Player: '&8[&3TPluginManager&8][&eWARN&8] &rYou cannot open this menu.'
   Main-Menu:
     Title: 'TPluginManager Main Menu'
-    Click-Optimize:
-      name: '&aClick optimize'
-      lore: '&7Click to optimize Server'
+    Task-Manager:
+      name: '&aTask Manager'
+      lore: '&7Click to open TaskManager menu'
     Plugins-List:
       name: '&3List of plugins'
       lore: '&7Quickly manage plugins'
