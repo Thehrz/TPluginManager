@@ -1,54 +1,67 @@
 package io.github.thehrz.tpluginmanager.module.menu.impl
 
-import io.github.thehrz.tpluginmanager.module.menu.Menu
-import io.izzel.taboolib.internal.xseries.XMaterial
-import io.izzel.taboolib.module.locale.TLocale
-import io.izzel.taboolib.util.item.ItemBuilder
-import org.bukkit.Material
+import io.github.thehrz.tpluginmanager.module.taskmanager.TaskManagerMenu
+import org.bukkit.entity.Player
+import org.bukkit.inventory.Inventory
+import taboolib.common.platform.console
+import taboolib.library.xseries.XMaterial
+import taboolib.module.lang.asLangText
+import taboolib.module.ui.Menu
+import taboolib.module.ui.buildMenu
+import taboolib.module.ui.type.Basic
+import taboolib.platform.util.buildItem
 
-object MainMenu : Menu(TLocale.asString("Menu.Main-Menu.Title"), 3) {
-    init {
-        menu
-            .items(
+object MainMenu : Menu(console().asLangText("menu-main-title")) {
+    override fun build(): Inventory =
+        buildMenu<Basic>(title) {
+            rows(3)
+            map(
                 "###@@@&&&",
-                "# #@ @& &",
+                "#T#@L@&A&",
                 "###@@@&&&"
             )
-            .put('#', ItemBuilder(XMaterial.LIGHT_BLUE_STAINED_GLASS_PANE).name(" ").build())
-            .put('@', ItemBuilder(XMaterial.BLUE_STAINED_GLASS_PANE).name(" ").build())
-            .put('&', ItemBuilder(XMaterial.ORANGE_STAINED_GLASS_PANE).name(" ").build())
-            .build { inventory ->
-                inventory.setItem(
-                    10,
-                    ItemBuilder(Material.REDSTONE).name(TLocale.asString("Menu.Main-Menu.Click-Optimize.name"))
-                        .lore("", TLocale.asString("Menu.Main-Menu.Click-Optimize.lore"), "").build()
-                )
-
-                inventory.setItem(
-                    13,
-                    ItemBuilder(Material.PAPER).name(TLocale.asString("Menu.Main-Menu.Plugins-List.name"))
-                        .lore("", TLocale.asString("Menu.Main-Menu.Plugins-List.lore"), "").build()
-                )
-
-                inventory.setItem(
-                    16,
-                    ItemBuilder(Material.BOOK).name(TLocale.asString("Menu.Main-Menu.Advanced-Tools.name"))
-                        .lore("", TLocale.asString("Menu.Main-Menu.Advanced-Tools.lore"), "").build()
-                )
+            set('#', buildItem(XMaterial.LIGHT_BLUE_STAINED_GLASS_PANE) {
+                name = " "
+                
+            })
+            set('@', buildItem(XMaterial.BLUE_STAINED_GLASS_PANE) {
+                name = " "
+                colored()
+            })
+            set('&', buildItem(XMaterial.ORANGE_STAINED_GLASS_PANE) {
+                name = " "
+                colored()
+            })
+            set('T', buildItem(XMaterial.REDSTONE) {
+                name = console().asLangText("menu-main-task-manager-name")
+                lore += ""
+                lore += console().asLangText("menu-main-task-manager-lore")
+                lore += ""
+            })
+            set('L', buildItem(XMaterial.PAPER) {
+                name = console().asLangText("menu-main-plugins-list-name")
+                lore += ""
+                lore += console().asLangText("menu-main-plugins-list-lore")
+                lore += ""
+            })
+            set('A', buildItem(XMaterial.BOOK) {
+                name = console().asLangText("menu-main-advanced-tools-name")
+                lore += ""
+                lore += console().asLangText("menu-main-advanced-tools-lore")
+                lore += ""
+            })
+            onClick('T') {
+                TaskManagerMenu.open(it.clicker)
             }
-            .click { clickEvent ->
-                clickEvent.onClick {
-                    when (it.slot) {
-                        // 一键优化
-                        10 -> System.gc()
-
-                        // 插件列表
-                        13 -> PluginsListMenu.open(clickEvent.clicker)
-
-                        // 高级工具集
-                        16 -> AdvancedToolsMenu.open(clickEvent.clicker)
-                    }
-                }
+            onClick('L') {
+                PluginsListMenu.open(it.clicker)
             }
+            onClick('A') {
+                AdvancedToolsMenu.open(it.clicker)
+            }
+        }
+
+    fun open(player: Player) {
+        player.openInventory(build())
     }
 }

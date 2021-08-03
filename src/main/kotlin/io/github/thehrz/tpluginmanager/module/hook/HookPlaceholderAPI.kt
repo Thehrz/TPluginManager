@@ -1,29 +1,18 @@
 package io.github.thehrz.tpluginmanager.module.hook
 
-import io.github.thehrz.tpluginmanager.TPluginManager
-import io.github.thehrz.tpluginmanager.module.plugin.PluginManager
-import io.izzel.taboolib.module.inject.THook
-import me.clip.placeholderapi.expansion.PlaceholderExpansion
+import io.github.thehrz.tpluginmanager.api.plugin.impl.BukkitPluginManager
 import org.bukkit.entity.Player
+import taboolib.platform.compat.PlaceholderExpansion
 
-@THook
-class HookPlaceholderAPI : PlaceholderExpansion() {
-    override fun getIdentifier(): String = "tpluginmanager"
+object HookPlaceholderAPI : PlaceholderExpansion {
+    override val identifier: String = "TPluginManager"
 
-    override fun getAuthor(): String = "Thehrz"
+    override fun onPlaceholderRequest(player: Player, args: String): String {
+        val params = args.split("_")
 
-    override fun getVersion(): String = TPluginManager.plugin.description.version
-
-    override fun persist(): Boolean = true
-
-    override fun canRegister(): Boolean = true
-
-    override fun onPlaceholderRequest(player: Player?, params: String): String {
-        val args = params.split("_")
-
-        return when (args[0]) {
-            "plugins" -> PluginManager.getPluginsList().size.toString()
-            "isenable" -> PluginManager.getPlugin(args[1])?.isEnabled?.toString() ?: "false"
+        return when (params[0]) {
+            "plugins" -> BukkitPluginManager.pluginsList.size.toString()
+            "isenable" -> BukkitPluginManager.getPlugin(params[1])?.isEnabled?.toString() ?: "false"
             else -> ""
         }
     }

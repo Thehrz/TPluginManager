@@ -1,23 +1,33 @@
 package io.github.thehrz.tpluginmanager.module.menu.impl
 
-import io.github.thehrz.tpluginmanager.module.menu.Menu
-import io.izzel.taboolib.internal.xseries.XMaterial
-import io.izzel.taboolib.module.locale.TLocale
-import io.izzel.taboolib.util.item.ItemBuilder
+import org.bukkit.entity.Player
+import org.bukkit.inventory.Inventory
+import taboolib.common.platform.console
+import taboolib.library.xseries.XMaterial
+import taboolib.module.lang.asLangText
+import taboolib.module.ui.Menu
+import taboolib.module.ui.buildMenu
+import taboolib.module.ui.type.Basic
+import taboolib.platform.util.buildItem
 
-object AdvancedToolsMenu : Menu(TLocale.asString("Menu.Main-Menu.Advanced-Tools.name"), 5) {
-    init {
-        menu
-            .items(
+object AdvancedToolsMenu : Menu(console().asLangText("menu-main-advanced-tools-name")) {
+    override fun build(): Inventory =
+        buildMenu<Basic>(title) {
+            rows(5)
+            map(
                 "#########",
-                "         ",
+                "T        ",
                 "         ",
                 "         ",
                 "#########"
             )
-            .put('#', ItemBuilder(XMaterial.GRAY_STAINED_GLASS_PANE).name(" ").build())
+            set('#', buildItem(XMaterial.GRAY_STAINED_GLASS_PANE) {
+                name = " "
+                colored()
+            })
+        }
+
+    fun open(player: Player) {
+        player.openInventory(build())
     }
-
-
-
 }

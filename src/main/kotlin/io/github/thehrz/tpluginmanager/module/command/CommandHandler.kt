@@ -1,137 +1,98 @@
 package io.github.thehrz.tpluginmanager.module.command
 
+import io.github.thehrz.tpluginmanager.api.plugin.impl.BukkitPluginManager
 import io.github.thehrz.tpluginmanager.module.menu.impl.MainMenu
-import io.github.thehrz.tpluginmanager.module.plugin.PluginManager
-import io.izzel.taboolib.module.command.base.*
-import io.izzel.taboolib.module.locale.TLocale
-import org.bukkit.command.Command
-import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
+import taboolib.common.LifeCycle
+import taboolib.common.platform.Awake
+import taboolib.common.platform.ProxyPlayer
+import taboolib.common.platform.command
+import taboolib.module.lang.sendLang
 
-@BaseCommand(name = "TPluginManager", aliases = ["tpm"], permission = "tpluginmanager.access")
-class CommandHandler : BaseMainCommand() {
-    companion object {
-        // 已经开启的插件
-        val enablePlugins = PluginManager.getPluginsListString().toMutableList()
-        // 已经关闭的插件
-        val disablePlugins = mutableListOf<String>()
-        // 准备加载的插件
-        val loadPlugins = mutableListOf<String>()
-    }
+object CommandHandler {
+    // 已经开启的插件
+    val enablePlugins = BukkitPluginManager.getPluginsListString().toMutableList()
 
-    /**
-     * enable命令
-     *
-     * 用于开启一个插件
-     */
-    @SubCommand(permission = "enable")
-    val enable: BaseSubCommand = object : BaseSubCommand() {
-        override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
-            if (PluginManager.enablePlugin(args[0], sender)) {
-                enablePlugins.add(args[0])
-                disablePlugins.remove(args[0])
+    // 已经关闭的插件
+    val disablePlugins = mutableListOf<String>()
+
+    // 准备加载的插件
+    val loadPlugins = mutableListOf<String>()
+
+    @Awake(LifeCycle.ENABLE)
+    fun commands() {
+        command(name = "TPluginManager", aliases = listOf("tpm"), permission = "tpluginmanager.access") {
+            literal("enable") {
+                dynamic(optional = true) {
+                    suggestion<ProxyPlayer> { _, _ ->
+                        disablePlugins
+                    }
+                    execute<ProxyPlayer> { sender, _, argument ->
+                        if (BukkitPluginManager.enablePlugin(argument, sender)) {
+                            enablePlugins.add(argument)
+                            disablePlugins.remove(argument)
+                        }
+                    }
+                }
             }
-        }
-
-        override fun getArguments(): Array<Argument> {
-            return arrayOf(Argument("plugin", true) { disablePlugins })
-        }
-
-        override fun getDescription(): String {
-            return TLocale.asString("Commands.Enable.Display")
-        }
-    }
-
-    /**
-     * disable命令
-     *
-     * 用于关闭一个插件
-     */
-    @SubCommand(permission = "disable")
-    val disable: BaseSubCommand = object : BaseSubCommand() {
-        override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
-            if (PluginManager.disablePlugin(args[0], sender)) {
-                enablePlugins.remove(args[0])
-                disablePlugins.add(args[0])
+            literal("disable") {
+                dynamic(optional = true) {
+                    suggestion<ProxyPlayer> { _, _ ->
+                        enablePlugins
+                    }
+                    execute<ProxyPlayer> { sender, _, argument ->
+                        if (BukkitPluginManager.disablePlugin(argument, sender)) {
+                            enablePlugins.remove(argument)
+                            disablePlugins.add(argument)
+                        }
+                    }
+                }
             }
-        }
-
-        override fun getArguments(): Array<Argument> {
-            return arrayOf(Argument("plugin", true) { enablePlugins })
-        }
-
-        override fun getDescription(): String {
-            return TLocale.asString("Commands.Disable.Display")
-        }
-    }
-
-    @SubCommand(permission = "load")
-    val load: BaseSubCommand = object : BaseSubCommand() {
-        override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
-            if (PluginManager.loadPlugin(args[0], sender)) {
-                loadPlugins.remove(args[0])
-                enablePlugins.add(args[0])
+            literal("load") {
+                dynamic(optional = true) {
+                    suggestion<ProxyPlayer> { _, _ ->
+                        loadPlugins
+                    }
+                    execute<ProxyPlayer> { sender, _, argument ->
+                        if (BukkitPluginManager.loadPlugin(argument, sender)) {
+                            loadPlugins.remove(argument)
+                            enablePlugins.add(argument)
+                        }
+                    }
+                }
             }
-        }
-
-        override fun getArguments(): Array<Argument> {
-            return arrayOf(Argument("plugin", true) { loadPlugins })
-        }
-
-        override fun getDescription(): String {
-            return TLocale.asString("Commands.Load.Display")
-        }
-    }
-
-    @SubCommand(permission = "unload")
-    val unload: BaseSubCommand = object : BaseSubCommand() {
-        override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
-            if (PluginManager.unloadPlugin(args[0], sender)) {
-                enablePlugins.remove(args[0])
+            literal("unload") {
+                dynamic(optional = true) {
+                    suggestion<ProxyPlayer> { _, _ ->
+                        enablePlugins
+                    }
+                    execute<ProxyPlayer> { sender, _, argument ->
+                        if (BukkitPluginManager.unloadPlugin(argument, sender)) {
+                            enablePlugins.remove(argument)
+                        }
+                    }
+                }
             }
-        }
-
-        override fun getArguments(): Array<Argument> {
-            return arrayOf(Argument("plugin", true) { enablePlugins })
-        }
-
-        override fun getDescription(): String {
-            return TLocale.asString("Commands.Unload.Display")
-        }
-    }
-
-    @SubCommand(permission = "reload")
-    val reload: BaseSubCommand = object : BaseSubCommand() {
-        override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
-            PluginManager.reloadPlugin(args[0], sender)
-        }
-
-        override fun getArguments(): Array<Argument> {
-            return arrayOf(Argument("plugin", true) { enablePlugins })
-        }
-
-        override fun getDescription(): String {
-            return TLocale.asString("Commands.Reload.Display")
-        }
-    }
-
-    /**
-     * menu命令
-     *
-     * 用于打开菜单界面
-     */
-    @SubCommand(permission = "menu")
-    val menu: BaseSubCommand = object : BaseSubCommand() {
-        override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>) {
-            if (sender is Player) {
-                MainMenu.open(sender)
-            } else {
-                TLocale.sendTo(sender, "Menu.Not-Player")
+            literal("reload") {
+                dynamic(optional = true) {
+                    suggestion<ProxyPlayer> { _, _ ->
+                        enablePlugins
+                    }
+                    execute<ProxyPlayer> { sender, _, argument ->
+                        BukkitPluginManager.reloadPlugin(argument, sender)
+                    }
+                }
             }
-        }
+            literal("menu") {
+                execute<ProxyPlayer> { sender, _, _ ->
+                    MainMenu.open(sender.cast())
+                }
+                incorrectSender { sender, context ->
+                    sender.sendLang("menu-not-player")
+                }
+            }
+            incorrectCommand { sender, context, index, state ->
 
-        override fun getDescription(): String {
-            return TLocale.asString("Commands.Menu")
+            }
         }
     }
 }

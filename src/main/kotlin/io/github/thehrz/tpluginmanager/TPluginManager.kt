@@ -1,18 +1,24 @@
 package io.github.thehrz.tpluginmanager
 
-import io.izzel.taboolib.loader.Plugin
-import io.izzel.taboolib.metrics.BMetrics
-import io.izzel.taboolib.module.config.TConfig
-import io.izzel.taboolib.module.inject.TInject
-import io.izzel.taboolib.module.locale.TLocale
+import taboolib.common.platform.Plugin
+import taboolib.common.platform.console
+import taboolib.common.platform.runningPlatform
+import taboolib.module.configuration.Config
+import taboolib.module.configuration.SecuredFile
+import taboolib.module.lang.sendLang
+import taboolib.module.metrics.Metrics
+import taboolib.platform.BukkitPlugin
 
 object TPluginManager : Plugin() {
 
-    @TInject(value = ["settings.yml"], locale = "Options.Language", migrate = true)
-    lateinit var config: TConfig
+    @Config(value = "settings.yml", migrate = true)
+    lateinit var config: SecuredFile
+        private set
 
     override fun onEnable() {
-        BMetrics(plugin, 11184)
-        TLocale.sendToConsole("Plugin.Enabled", plugin.description.version, KotlinVersion.CURRENT.toString())
+        Metrics(11184, BukkitPlugin.getInstance().description.version, runningPlatform)
+        console().sendLang("plugin-enabled", BukkitPlugin.getInstance().description.version, KotlinVersion.CURRENT.toString())
     }
+
+
 }

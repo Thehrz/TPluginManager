@@ -1,51 +1,36 @@
-Plugin:
-  Enabled: '&8[&3TPluginManager&8][&bINFO&8] &r插件已成功加载. 当前插件版本是 &2{0}&r, Kotlin版本是 &2{1}&r。'
-Commands:
-  Enable:
-    Display: '开启插件'
-    Bukkit: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r 已经成功使用Bukkit-API开启。'
-    Finish: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r 开启成功。'
-  Disable:
-    Display: '关闭插件'
-    Bukkit: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r 已经成功使用Bukkit-API关闭。'
-    Command: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r 的命令已经注销。'
-    Finish: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r 关闭成功。'
-  Load:
-    Display: '加载插件'
-    Already-Running: '&8[&3TPluginManager&8][&eWARN&8] &r插件 &2{0}&r 已在此服务器上运行。'
-    File-Found: '&8[&3TPluginManager&8][&bINFO&8] &r已找到插件文件 &2{0}&r。'
-  Unload:
-    Display: '卸载插件'
-    Disable: '&8[&3TPluginManager&8][&bINFO&8] &r已关闭插件 &2{0}&r。'
-    Plugins-List: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r 已经从插件列表删除。'
-  Reload:
-    Display: '重载插件'
-  Menu: '打开主菜单'
-  Unknown: '&8[&3TPluginManager&8][&eWARN&8] &r未知插件 &2{0}&r.'
-Menu:
-  Not-Player: '&8[&3TPluginManager&8][&eWARN&8] &r你无法打开此菜单。'
-  Main-Menu:
-    Title: 'TPluginManager 主菜单'
-    Task-Manager:
-      name: '&a任务管理器'
-      lore: '&7点击以打开任务管理器'
-    Plugins-List:
-      name: '&3插件列表'
-      lore: '&7快速管理插件'
-    Advanced-Tools:
-      name: '&4高级工具'
-      lore: '&7包含一些高级工具'
-  Plugins-List:
-    Title: '插件列表'
-    Version: '&a版本: {0}'
-    Authors: '&a贡献者: {0}'
-    SoftDepend: '&a软前置: {0}'
-    Depend: '&a前置: {0}'
-    Info:
-      Setting: '&a设置'
-      Enable: '&4开启'
-      Disable: '&8关闭'
-Service:
-  Auto-Load-Plugins:
-    Found: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r, 文件名 &2{1}&r, 版本 &2{2}&r 已经找到, 请使用命令 &2/tpm load {0}&r 以加载它.'
-    Load: '&8[&3TPluginManager&8][&bINFO&8] &r加载插件中...'
+plugin-enabled: '&8[&3TPluginManager&8][&bINFO&8] &r插件已成功加载. 当前插件版本是 &2{0}&r, Kotlin版本是 &2{1}&r。'
+commands-enable-display: '开启插件'
+commands-enable-bukkitapi: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r 已经成功使用Bukkit-API开启。'
+commands-enable-finish: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r 开启成功。'
+commands-disable-display: '关闭插件'
+commands-disable-bukkitapi: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r 已经成功使用Bukkit-API关闭。'
+commands-disable-command: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r 的命令已经注销。'
+commands-disable-finish: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r 关闭成功。'
+commands-load-display: '加载插件'
+commands-load-already-running: '&8[&3TPluginManager&8][&eWARN&8] &r插件 &2{0}&r 已在此服务器上运行。'
+commands-load-file-found: '&8[&3TPluginManager&8][&bINFO&8] &r已找到插件文件 &2{0}&r。'
+commands-unload-display: '卸载插件'
+commands-unload-disable: '&8[&3TPluginManager&8][&bINFO&8] &r已关闭插件 &2{0}&r。'
+commands-unload-plugins-list: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r 已经从插件列表删除。'
+commands-reload-display: '重载插件'
+commands-menu-display: '打开主菜单'
+commands-unknown: '&8[&3TPluginManager&8][&eWARN&8] &r未知插件 &2{0}&r.'
+menu-not-player: '&8[&3TPluginManager&8][&eWARN&8] &r你无法打开此菜单。'
+menu-main-title: 'TPluginManager 主菜单'
+menu-main-task-manager-name: '&a任务管理器'
+menu-main-task-manager-lore: '&7点击以打开任务管理器'
+menu-main-plugins-list-name: '&3插件列表'
+menu-main-plugins-list-lore: '&7快速管理插件'
+menu-main-advanced-tools-name: '&4高级工具'
+menu-main-advanced-tools-lore: '&7包含一些高级工具'
+menu-plugins-list-title: '插件列表'
+menu-plugins-list-version: '&a版本: {0}'
+menu-plugins-list-authors: '&a贡献者: {0}'
+menu-plugins-list-softdepend: '&a软前置: {0}'
+menu-plugins-list-depend: '&a前置: {0}'
+menu-plugins-list-info-setting: '&a设置'
+menu-plugins-list-info-enable: '&4开启'
+menu-plugins-list-info-disable: '&8关闭'
+menu-task-manager-title: '任务管理器'
+service-auto-load-plugins-found: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r, 文件名 &2{1}&r, 版本 &2{2}&r 已经找到, 请使用命令 &2/tpm load {0}&r 以加载它.'
+service-auto-load-plugins-load: '&8[&3TPluginManager&8][&bINFO&8] &r加载插件中...'

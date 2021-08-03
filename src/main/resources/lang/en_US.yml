@@ -1,51 +1,36 @@
-Plugin:
-  Enabled: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin has been successfully loaded. The current plugin version is &2{0}&r, Kotlin version is &2{1}&r.'
-Commands:
-  Enable:
-    Display: 'Enable a plugin'
-    Bukkit: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been enable by Bukkit-API.'
-    Finish: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r enable finish.'
-  Disable:
-    Display: 'Disable a plugin'
-    Bukkit: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been disable by Bukkit-API.'
-    Command: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r commands has been unregistered.'
-    Finish: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r disable finish.'
-  Load:
-    Display: 'Load a plugin'
-    Already-Running: '&8[&3TPluginManager&8][&eWARN&8] &rPlugin &2{0}&r is already running on this server.'
-    File-Found: '&8[&3TPluginManager&8][&bINFO&8] &rFile &2{0}&r has been found.'
-  Unload:
-    Display: 'Unload a plugin'
-    Disable: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been disable.'
-    Plugins-List: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been removed from the list of plugins.'
-  Reload:
-    Display: 'Reload a plugin'
-  Menu: 'Open main menu'
-  Unknown: '&8[&3TPluginManager&8][&eWARN&8] &rPlugin &2{0}&r not found.'
-Menu:
-  Not-Player: '&8[&3TPluginManager&8][&eWARN&8] &rYou cannot open this menu.'
-  Main-Menu:
-    Title: 'TPluginManager Main Menu'
-    Task-Manager:
-      name: '&aTask Manager'
-      lore: '&7Click to open TaskManager menu'
-    Plugins-List:
-      name: '&3List of plugins'
-      lore: '&7Quickly manage plugins'
-    Advanced-Tools:
-      name: '&4Advanced tools'
-      lore: '&7Contains some advanced tools'
-  Plugins-List:
-    Title: 'List of plugins'
-    Version: '&aversion: {0}'
-    Authors: '&aauthors: {0}'
-    SoftDepend: '&asoftDepend: {0}'
-    Depend: '&adepend: {0}'
-    Info:
-      Setting: '&aSetting'
-      Enable: '&4Enable'
-      Disable: '&8Disable'
-Service:
-  Auto-Load-Plugins:
-    Found: '&8[&3TPluginManager&8][&bINFO&8] &rThe plugin &2{0}&r, file name &2{1}&r, version &2{2}&r have been found, please use the command &2/tpm load {0}&r to load it.'
-    Load: '&8[&3TPluginManager&8][&bINFO&8] &rLoading plugin...'
+plugin-enabled: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin has been successfully loaded. The current plugin version is &2{0}&r, Kotlin version is &2{1}&r.'
+commands-enable-display: 'Enable a plugin'
+commands-enable-bukkitapi: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been enable by Bukkit-API.'
+commands-enable-finish: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r enable finish.'
+commands-disable-display: 'Disable a plugin'
+commands-disable-bukkitapi: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been disable by Bukkit-API.'
+commands-disable-command: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r commands has been unregistered.'
+commands-disable-finish: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r disable finish.'
+commands-load-display: 'Load a plugin'
+commands-load-already-running: '&8[&3TPluginManager&8][&eWARN&8] &rPlugin &2{0}&r is already running on this server.'
+commands-load-file-found: '&8[&3TPluginManager&8][&bINFO&8] &rFile &2{0}&r has been found.'
+commands-unload-display: 'Unload a plugin'
+commands-unload-disable: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been disable.'
+commands-unload-plugins-list: '&8[&3TPluginManager&8][&bINFO&8] &rPlugin &2{0}&r has been removed from the list of plugins.'
+commands-reload-display: 'Reload a plugin'
+commands-menu-display: 'Open main menu'
+commands-unknown: '&8[&3TPluginManager&8][&eWARN&8] &rPlugin &2{0}&r not found.'
+menu-not-player: '&8[&3TPluginManager&8][&eWARN&8] &rYou cannot open this menu.'
+menu-main-title: 'TPluginManager Main Menu'
+menu-main-task-manager-name: '&aTask Manager'
+menu-main-task-manager-lore: '&7Click to open TaskManager menu'
+menu-main-plugins-list-name: '&3List of plugins'
+menu-main-plugins-list-lore: '&7Quickly manage plugins'
+menu-main-advanced-tools-name: '&4Advanced tools'
+menu-main-advanced-tools-lore: '&7Contains some advanced tools'
+menu-plugins-list-title: 'List of plugins'
+menu-plugins-list-version: '&aversion: {0}'
+menu-plugins-list-authors: '&aauthors: {0}'
+menu-plugins-list-softdepend: '&asoftDepend: {0}'
+menu-plugins-list-depend: '&adepend: {0}'
+menu-plugins-list-info-setting: '&aSetting'
+menu-plugins-list-info-enable: '&4Enable'
+menu-plugins-list-info-disable: '&8Disable'
+menu-task-manager-title: 'Task Manager Menu'
+service-auto-load-plugins-found: '&8[&3TPluginManager&8][&bINFO&8] &rThe plugin &2{0}&r, file name &2{1}&r, version &2{2}&r have been found, please use the command &2/tpm load {0}&r to load it.'
+service-auto-load-plugins-load: '&8[&3TPluginManager&8][&bINFO&8] &rLoading plugin...'
