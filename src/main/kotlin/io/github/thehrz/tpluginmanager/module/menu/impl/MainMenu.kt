@@ -11,9 +11,10 @@ import taboolib.module.ui.buildMenu
 import taboolib.module.ui.type.Basic
 import taboolib.platform.util.buildItem
 
-object MainMenu : Menu(console().asLangText("menu-main-title")) {
+object MainMenu : Menu(console().asLangText("menu-main-title", "")) {
     override fun build(): Inventory =
         buildMenu<Basic>(title) {
+            handLocked(true)
             rows(3)
             map(
                 "###@@@&&&",
@@ -22,7 +23,7 @@ object MainMenu : Menu(console().asLangText("menu-main-title")) {
             )
             set('#', buildItem(XMaterial.LIGHT_BLUE_STAINED_GLASS_PANE) {
                 name = " "
-                
+                colored()
             })
             set('@', buildItem(XMaterial.BLUE_STAINED_GLASS_PANE) {
                 name = " "

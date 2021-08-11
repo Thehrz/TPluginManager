@@ -1,7 +1,8 @@
 package io.github.thehrz.tpluginmanager.module.hook
 
-import io.github.thehrz.tpluginmanager.api.plugin.impl.BukkitPluginManager
+import io.github.thehrz.tpluginmanager.implementation.bukkit.BukkitPluginManager
 import org.bukkit.entity.Player
+import taboolib.common.platform.implementations
 import taboolib.platform.compat.PlaceholderExpansion
 
 object HookPlaceholderAPI : PlaceholderExpansion {
@@ -11,8 +12,8 @@ object HookPlaceholderAPI : PlaceholderExpansion {
         val params = args.split("_")
 
         return when (params[0]) {
-            "plugins" -> BukkitPluginManager.pluginsList.size.toString()
-            "isenable" -> BukkitPluginManager.getPlugin(params[1])?.isEnabled?.toString() ?: "false"
+            "plugins" -> implementations<BukkitPluginManager>().getProxyPluginsList().size.toString()
+            "isenable" -> implementations<BukkitPluginManager>().getPlugin(params[1])?.cast<org.bukkit.plugin.Plugin>()?.isEnabled?.toString() ?: "false"
             else -> ""
         }
     }

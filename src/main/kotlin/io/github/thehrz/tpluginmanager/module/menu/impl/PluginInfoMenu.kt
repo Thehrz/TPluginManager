@@ -2,6 +2,7 @@ package io.github.thehrz.tpluginmanager.module.menu.impl
 
 import io.github.thehrz.tpluginmanager.module.menu.PluginIcon
 import io.github.thehrz.tpluginmanager.utils.Heads
+import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
 import taboolib.common.platform.console
 import taboolib.library.xseries.XMaterial
@@ -16,6 +17,7 @@ import java.util.*
 class PluginInfoMenu(val pluginIcon: PluginIcon) : Menu(pluginIcon.name) {
     override fun build(): Inventory =
         buildMenu<Basic> {
+            handLocked(true)
             rows(6)
             map(
                 "  P   S  ",
@@ -35,7 +37,7 @@ class PluginInfoMenu(val pluginIcon: PluginIcon) : Menu(pluginIcon.name) {
                 name = " "
             })
             set('E',
-                if (pluginIcon.enable)
+                if (pluginIcon.isEnabled)
                     buildItem(XMaterial.REDSTONE) {
                         name = console().asLangText("menu-plugins-list-info-enable")
                     }
@@ -46,5 +48,7 @@ class PluginInfoMenu(val pluginIcon: PluginIcon) : Menu(pluginIcon.name) {
             )
         }
 
-
+    fun open(player: Player) {
+        player.openInventory(build())
+    }
 }

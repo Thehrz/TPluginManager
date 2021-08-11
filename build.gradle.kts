@@ -13,30 +13,34 @@ taboolib {
     install("common")
     install("common-5")
     install("module-ui")
-    install("module-nms")
-    install("module-nms-util")
     install("module-chat")
     install("module-lang")
     install("module-metrics")
-    install("module-porticus")
     install("module-configuration")
     install("platform-bukkit", "platform-bungee", "platform-nukkit", "platform-velocity")
     install("platform-sponge-api7", "platform-sponge-api8")
-    version = "6.0.0-pre25"
+    version = "6.0.0-pre36"
 }
 
 
 repositories {
-    mavenLocal()
     mavenCentral()
-    maven { url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/") }
     maven { url = uri("https://repo.codemc.org/repository/maven-public") }
+//    maven { url = uri("https://repo.spongepowered.org/maven") }
+    maven { url = uri("https://repo.nukkitx.com/maven-snapshots") }
+//    maven { url = uri("https://nexus.velocitypowered.com/repository/maven-public/") }
 }
 
 dependencies {
     compileOnly("ink.ptms.core:v11600:11600:all")
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib")
-    compileOnly("me.clip:placeholderapi:2.10.9")
+    compileOnly("cn.nukkit:nukkit:2.0.0-SNAPSHOT")
+//    compileOnly("net.md_5.bungee:BungeeCord:1:all")
+//    compileOnly("org.spongepowered:spongeapi:7.2.0") {
+//        exclude("org.apache.logging.log4j")
+//    }
+//    compileOnly("org.spongepowered:spongeapi:8.0.0-SNAPSHOT")
+//    compileOnly("com.velocitypowered:velocity-api:1.1.8")
     compileOnly(fileTree("libs"))
 }
 
