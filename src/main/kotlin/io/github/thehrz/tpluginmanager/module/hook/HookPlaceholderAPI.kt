@@ -2,9 +2,12 @@ package io.github.thehrz.tpluginmanager.module.hook
 
 import io.github.thehrz.tpluginmanager.implementation.bukkit.BukkitPluginManager
 import org.bukkit.entity.Player
-import taboolib.common.platform.implementations
+import taboolib.common.LifeCycle
+import taboolib.common.platform.Awake
+import taboolib.common.platform.function.implementations
 import taboolib.platform.compat.PlaceholderExpansion
 
+@Awake(LifeCycle.ENABLE)
 object HookPlaceholderAPI : PlaceholderExpansion {
     override val identifier: String = "TPluginManager"
 

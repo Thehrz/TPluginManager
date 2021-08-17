@@ -3,6 +3,7 @@ package io.github.thehrz.tpluginmanager.implementation.bukkit
 import io.github.thehrz.tpluginmanager.api.adaptPlugin
 import io.github.thehrz.tpluginmanager.api.adaptPluginNullable
 import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
+import io.github.thehrz.tpluginmanager.api.manager.Result
 import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
@@ -15,7 +16,7 @@ import org.jetbrains.annotations.NotNull
 import taboolib.common.platform.Platform
 import taboolib.common.platform.PlatformImplementation
 import taboolib.common.platform.ProxyCommandSender
-import taboolib.common.platform.console
+import taboolib.common.platform.function.console
 import taboolib.common.reflect.Ref
 import taboolib.module.lang.sendLang
 import taboolib.platform.BukkitPlugin
@@ -50,10 +51,8 @@ class BukkitPluginManager : IPluginManager {
     override fun getProxyPluginsList(): List<ProxyPlugin> =
         pluginsList.map { adaptPlugin(it) }
 
-
     override fun getPluginsListString(): List<String> =
         getPluginManager().plugins.map { plugin: Plugin -> plugin.name }
-
 
     private fun unregisterCommand(pluginManager: PluginManager, plugin: Plugin) {
         val commandMap = pluginManager::class.java.getDeclaredField("commandMap").let {
@@ -83,17 +82,17 @@ class BukkitPluginManager : IPluginManager {
         }
     }
 
-    override fun enablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Boolean {
+    override fun enablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
         // Bukkit-API 开启插件
         getPluginManager().enablePlugin(proxyPlugin.cast())
         sender.sendLang("commands-enable-api", proxyPlugin.name, "Bukkit")
 
         sender.sendLang("commands-enable-finish", proxyPlugin.name)
 
-        return true
+        return Result.SUCCESS
     }
 
-    override fun disablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Boolean {
+    override fun disablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
         val plugin = proxyPlugin.cast<Plugin>()
         // Bukkit-API 关闭插件
         getPluginManager().disablePlugin(plugin)
@@ -104,25 +103,25 @@ class BukkitPluginManager : IPluginManager {
         sender.sendLang("commands-disable-command", plugin.name)
 
         sender.sendLang("commands-disable-finish", plugin.name)
-        return true
+        return Result.SUCCESS
     }
 
-    override fun loadPlugin(pluginFile: File, sender: ProxyCommandSender): Boolean {
+    override fun loadPlugin(pluginFile: File, sender: ProxyCommandSender): Result {
         val plugin: Plugin?
         try {
             plugin = getPluginManager().loadPlugin(pluginFile)
         } catch (e: InvalidDescriptionException) {
             sender.sendLang("commands-load-invalid-description", pluginFile.name)
             e.printStackTrace()
-            return false
+            return Result.FAIL
         } catch (e: InvalidPluginException) {
             sender.sendLang("commands-load-invalid-description")
             e.printStackTrace()
-            return false
+            return Result.FAIL
         } catch (e: UnknownDependencyException) {
             sender.sendLang("commands-load-unknown-dependency", e.message!!)
             e.printStackTrace()
-            return false
+            return Result.FAIL
         }
 
         plugin?.let {
@@ -130,12 +129,12 @@ class BukkitPluginManager : IPluginManager {
             enablePlugin(adaptPlugin(it), sender)
         }
 
-        return true
+        return Result.SUCCESS
     }
 
-    override fun loadPlugin(name: String, sender: ProxyCommandSender): Boolean {
+    override fun loadPlugin(name: String, sender: ProxyCommandSender): Result {
         getPlugin(name)?.let {
-            sender.sendLang("commands-load-already-running", name)
+            return Result.NOTFOUND
         } ?: let {
             val dir = File("plugins")
 
@@ -155,10 +154,10 @@ class BukkitPluginManager : IPluginManager {
 
         sender.sendLang("commands-unknown", name)
 
-        return false
+        return Result.SUCCESS
     }
 
-    override fun unloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Boolean {
+    override fun unloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
         disablePlugin(proxyPlugin, console())
         sender.sendLang("commands-unload-disable", proxyPlugin.name)
 
@@ -166,13 +165,13 @@ class BukkitPluginManager : IPluginManager {
         lookupNames.remove(proxyPlugin.name)
         sender.sendLang("commands-unload-plugins-list", proxyPlugin.name)
 
-        return true
+        return Result.SUCCESS
     }
 
-    override fun reloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Boolean {
+    override fun reloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
         disablePlugin(proxyPlugin, sender)
         enablePlugin(proxyPlugin, sender)
 
-        return true
+        return Result.SUCCESS
     }
 }

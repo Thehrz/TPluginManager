@@ -16,8 +16,6 @@ interface ProxyPlugin {
 
     val origin: Any
 
-
-
     fun <T> cast(): T {
         return origin as T
     }

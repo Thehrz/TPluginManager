@@ -1,9 +1,9 @@
 package io.github.thehrz.tpluginmanager
 
 import taboolib.common.platform.Plugin
-import taboolib.common.platform.console
-import taboolib.common.platform.pluginVersion
-import taboolib.common.platform.runningPlatform
+import taboolib.common.platform.function.console
+import taboolib.common.platform.function.pluginVersion
+import taboolib.common.platform.function.runningPlatform
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.SecuredFile
 import taboolib.module.lang.sendLang

@@ -1,6 +1,6 @@
 plugins {
     java
-    id("io.izzel.taboolib") version "1.12"
+    id("io.izzel.taboolib") version "1.18"
     id("org.jetbrains.kotlin.jvm") version "1.5.10"
 }
 
@@ -19,7 +19,7 @@ taboolib {
     install("module-configuration")
     install("platform-bukkit", "platform-bungee", "platform-nukkit", "platform-velocity")
     install("platform-sponge-api7", "platform-sponge-api8")
-    version = "6.0.0-pre36"
+    version = "6.0.0-pre50"
 }
 
 

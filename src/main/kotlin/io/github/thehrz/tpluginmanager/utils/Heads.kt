@@ -1,5 +1,8 @@
 package io.github.thehrz.tpluginmanager.utils
 
+import taboolib.platform.util.ItemBuilder
+import java.util.*
+
 enum class Heads(val texture: String) {
     A("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2ViMmE5NTg2Mjg5ZjM1YjJkNWYyYjFkYjI5NmNiNzc1MjhlMjBiNzkwM2U3N2NjNTNhYWM1MzhkNTk2NzMifX19"),
     B("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjQ3MjU3YWZkMzE1MThkOTRlODAyZTk5MzU2MjZiZjkzZTU1YWE2Zjc3YjU2YmE3ZTM3ZjhiZTRlNTdkMSJ9fX0="),
@@ -27,5 +30,14 @@ enum class Heads(val texture: String) {
     X("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWY3NGQ0ZGI0Y2MzYmU0MWEzNzNkOWVmOWNhYzI3ZTYzNThjNTNmNjQxMTVkMTUwMjQzZjI1YWNmNjRmMmY1MCJ9fX0="),
     Y("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzljMTBkODI4MzkyNmQ3MjBmZDNkZTE1YzRlNGNkM2UxNTlmYjI1NmY3ZmE4ZDg5N2ViMmYxNGFiOGExOCJ9fX0="),
     Z("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDY0OTE3YzI0MTQ5NDFlZmY3ZTAxYmM5YmQxNTljNjk5ZTliZWUyZDg4ZTMxNWVhZDJiOWNlYzBjYmU1MWM5OCJ9fX0="),
-    GARBAGE_CAN("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjMyYzE0NzJhN2JjNjk3NWRlZDdjMGM1MTY5Njk1OWI4OWFmNjFiNzVhZTk1NGNjNDAzNmJjMzg0YjNiODMwMSJ9fX0=")
+    GARBAGE_CAN("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjMyYzE0NzJhN2JjNjk3NWRlZDdjMGM1MTY5Njk1OWI4OWFmNjFiNzVhZTk1NGNjNDAzNmJjMzg0YjNiODMwMSJ9fX0=");
+
+    private val heads = mutableMapOf<Heads, ItemBuilder.SkullTexture>()
+
+    fun getSkullTexture(): ItemBuilder.SkullTexture {
+        if (!heads.containsKey(this)) {
+            heads[this] = ItemBuilder.SkullTexture(texture, UUID.randomUUID())
+        }
+        return heads[this]!!
+    }
 }

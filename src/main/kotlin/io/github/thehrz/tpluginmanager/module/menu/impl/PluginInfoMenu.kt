@@ -4,7 +4,7 @@ import io.github.thehrz.tpluginmanager.module.menu.PluginIcon
 import io.github.thehrz.tpluginmanager.utils.Heads
 import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
-import taboolib.common.platform.console
+import taboolib.common.platform.function.console
 import taboolib.library.xseries.XMaterial
 import taboolib.module.lang.asLangText
 import taboolib.module.ui.Menu

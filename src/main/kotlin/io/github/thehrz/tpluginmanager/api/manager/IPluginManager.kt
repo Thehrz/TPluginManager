@@ -2,7 +2,6 @@ package io.github.thehrz.tpluginmanager.api.manager
 
 import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
 import taboolib.common.platform.ProxyCommandSender
-import taboolib.module.lang.sendLang
 import java.io.File
 
 interface IPluginManager {
@@ -36,7 +35,7 @@ interface IPluginManager {
      * @param proxyPlugin 要开启的插件
      * @param sender 命令执行者
      */
-    fun enablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Boolean
+    fun enablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result
 
     /**
      * 关闭一个插件
@@ -44,7 +43,7 @@ interface IPluginManager {
      * @param proxyPlugin 要关闭的插件
      * @param sender 命令执行者
      */
-    fun disablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Boolean
+    fun disablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result
 
     /**
      * 加载一个插件
@@ -52,7 +51,7 @@ interface IPluginManager {
      * @param pluginFile 要加载的插件文件
      * @param sender 命令执行者
      */
-    fun loadPlugin(pluginFile: File, sender: ProxyCommandSender): Boolean
+    fun loadPlugin(pluginFile: File, sender: ProxyCommandSender): Result
 
     /**
      * 卸载一个插件
@@ -60,7 +59,7 @@ interface IPluginManager {
      * @param proxyPlugin 要加载的插件
      * @param sender 命令执行者
      */
-    fun unloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Boolean
+    fun unloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result
 
     /**
      * 重新加载一个插件
@@ -68,7 +67,7 @@ interface IPluginManager {
      * @param proxyPlugin 要重新加载的插件
      * @param sender 命令执行者
      */
-    fun reloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Boolean
+    fun reloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result
 
     /**
      * 开启一个插件
@@ -76,13 +75,11 @@ interface IPluginManager {
      * @param name 要开启的插件名
      * @param sender 命令执行者
      */
-    fun enablePlugin(name: String, sender: ProxyCommandSender): Boolean {
+    fun enablePlugin(name: String, sender: ProxyCommandSender): Result {
         getPlugin(name)?.let {
-            enablePlugin(it, sender)
-            return true
+            return enablePlugin(it, sender)
         } ?: let {
-            sender.sendLang("commands-unknown", name)
-            return false
+            return Result.NOTFOUND
         }
     }
 
@@ -92,12 +89,11 @@ interface IPluginManager {
      * @param name 要关闭的插件名
      * @param sender 命令执行者
      */
-    fun disablePlugin(name: String, sender: ProxyCommandSender): Boolean {
+    fun disablePlugin(name: String, sender: ProxyCommandSender): Result {
         getPlugin(name)?.let {
             return disablePlugin(it, sender)
         } ?: let {
-            sender.sendLang("commands-unknown", name)
-            return false
+            return Result.NOTFOUND
         }
     }
 
@@ -107,7 +103,7 @@ interface IPluginManager {
      * @param name 要加载的插件名
      * @param sender 命令执行者
      */
-    fun loadPlugin(name: String, sender: ProxyCommandSender): Boolean
+    fun loadPlugin(name: String, sender: ProxyCommandSender): Result
 
     /**
      * 卸载一个插件
@@ -115,12 +111,11 @@ interface IPluginManager {
      * @param name 要加载的插件名
      * @param sender 命令执行者
      */
-    fun unloadPlugin(name: String, sender: ProxyCommandSender): Boolean {
+    fun unloadPlugin(name: String, sender: ProxyCommandSender): Result {
         getPlugin(name)?.let {
             return unloadPlugin(it, sender)
         } ?: let {
-            sender.sendLang("commands-unknown", name)
-            return false
+            return Result.NOTFOUND
         }
     }
 
@@ -130,13 +125,11 @@ interface IPluginManager {
      * @param name 要重新加载的插件名
      * @param sender 命令执行者
      */
-    fun reloadPlugin(name: String, sender: ProxyCommandSender): Boolean {
+    fun reloadPlugin(name: String, sender: ProxyCommandSender): Result {
         getPlugin(name)?.let {
-            reloadPlugin(it, sender)
-            return true
+            return reloadPlugin(it, sender)
         } ?: let {
-            sender.sendLang("commands-unknown", name)
-            return false
+            return Result.NOTFOUND
         }
     }
 }

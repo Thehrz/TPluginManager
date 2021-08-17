@@ -3,8 +3,8 @@ package io.github.thehrz.tpluginmanager.module.menu
 import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
 import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
 import org.bukkit.ChatColor
-import taboolib.common.platform.console
-import taboolib.common.platform.implementations
+import taboolib.common.platform.function.console
+import taboolib.common.platform.function.implementations
 import taboolib.module.lang.asLangText
 
 class PluginIcon(proxyPlugin: ProxyPlugin) {

@@ -6,14 +6,13 @@ import io.github.thehrz.tpluginmanager.utils.Heads
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
-import taboolib.common.platform.console
-import taboolib.common.platform.implementations
+import taboolib.common.platform.function.console
+import taboolib.common.platform.function.implementations
 import taboolib.library.xseries.XMaterial
 import taboolib.module.lang.asLangText
 import taboolib.module.ui.Menu
 import taboolib.module.ui.buildMenu
 import taboolib.module.ui.type.Linked
-import taboolib.platform.util.ItemBuilder
 import taboolib.platform.util.buildItem
 
 object PluginsListMenu : Menu(console().asLangText("menu-plugins-list-title")) {
@@ -47,8 +46,8 @@ object PluginsListMenu : Menu(console().asLangText("menu-plugins-list-title")) {
                     name =
                         (if (pluginIcon.isEnabled) ChatColor.GREEN.toString() else ChatColor.RED.toString()) + pluginIcon.name
                     lore += pluginIcon.description
-                    skullTexture = ItemBuilder.SkullTexture((Heads.values().find { it.name[0] == pluginIcon.name[0] }
-                        ?: Heads.P).texture)
+                    skullTexture = (Heads.values().find { it.name[0] == pluginIcon.name[0] }
+                        ?: Heads.P).getSkullTexture()
                 }
             }
             onBuild(false) {

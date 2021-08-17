@@ -5,6 +5,7 @@ import cn.nukkit.plugin.PluginManager
 import io.github.thehrz.tpluginmanager.api.adaptPlugin
 import io.github.thehrz.tpluginmanager.api.adaptPluginNullable
 import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
+import io.github.thehrz.tpluginmanager.api.manager.Result
 import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
 import taboolib.common.platform.Platform
 import taboolib.common.platform.PlatformImplementation
@@ -27,17 +28,17 @@ class NukkitPluginManager : IPluginManager {
     override fun getPluginsListString(): List<String> =
         getPluginManager().plugins.map { it.key }
 
-    override fun enablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Boolean {
+    override fun enablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
         // Nukkit-API 开启插件
         getPluginManager().enablePlugin(proxyPlugin.cast())
         sender.sendLang("commands-enable-api", proxyPlugin.name, "Nukkit")
 
         sender.sendLang("commands-enable-finish", proxyPlugin.name)
 
-        return true
+        return Result.SUCCESS
     }
 
-    override fun disablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Boolean {
+    override fun disablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
         val plugin = proxyPlugin.cast<Plugin>()
         // Nukkit-API 关闭插件
         getPluginManager().disablePlugin(plugin)
@@ -46,25 +47,25 @@ class NukkitPluginManager : IPluginManager {
 //        sender.sendLang("commands-disable-command", plugin.name)
 
         sender.sendLang("commands-disable-finish", plugin.name)
-        return true
+        return Result.SUCCESS
     }
 
-    override fun loadPlugin(pluginFile: File, sender: ProxyCommandSender): Boolean {
+    override fun loadPlugin(pluginFile: File, sender: ProxyCommandSender): Result {
 //        getPluginManager().loadPlugin(pluginFile)
-        return true
+        return Result.SUCCESS
     }
 
-    override fun loadPlugin(name: String, sender: ProxyCommandSender): Boolean {
-        return true
+    override fun loadPlugin(name: String, sender: ProxyCommandSender): Result {
+        return Result.SUCCESS
     }
 
-    override fun unloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Boolean {
+    override fun unloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
 
-        return true
+        return Result.SUCCESS
     }
 
-    override fun reloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Boolean {
+    override fun reloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
 
-        return true
+        return Result.SUCCESS
     }
 }

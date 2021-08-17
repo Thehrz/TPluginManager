@@ -3,7 +3,7 @@ package io.github.thehrz.tpluginmanager.module.menu.impl
 import io.github.thehrz.tpluginmanager.module.taskmanager.TaskManagerMenu
 import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
-import taboolib.common.platform.console
+import taboolib.common.platform.function.console
 import taboolib.library.xseries.XMaterial
 import taboolib.module.lang.asLangText
 import taboolib.module.ui.Menu

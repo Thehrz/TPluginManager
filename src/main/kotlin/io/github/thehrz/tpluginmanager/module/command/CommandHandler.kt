@@ -1,10 +1,19 @@
 package io.github.thehrz.tpluginmanager.module.command
 
 import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
+import io.github.thehrz.tpluginmanager.api.manager.Result
 import io.github.thehrz.tpluginmanager.module.menu.impl.MainMenu
-import taboolib.common.platform.*
+import taboolib.common.platform.ProxyCommandSender
+import taboolib.common.platform.ProxyPlayer
+import taboolib.common.platform.command.CommandBody
+import taboolib.common.platform.command.CommandHeader
+import taboolib.common.platform.command.mainCommand
+import taboolib.common.platform.command.subCommand
+import taboolib.common.platform.function.implementations
+import taboolib.common.platform.function.pluginVersion
 import taboolib.module.chat.TellrawJson
 import taboolib.module.lang.asLangText
+import taboolib.module.lang.sendLang
 
 @CommandHeader(name = "tpluginmanager", aliases = ["tpm", "pluginmanager"], permission = "tpluginmanager.access")
 object CommandHandler {
@@ -15,9 +24,7 @@ object CommandHandler {
     private val disablePlugins = mutableListOf<String>()
 
     // 准备加载的插件
-    private val loadPlugins = mutableListOf<String>()
-
-
+    val loadPlugins = mutableListOf<String>()
 
     @CommandBody
     val main = mainCommand {
@@ -26,79 +33,105 @@ object CommandHandler {
         }
     }
 
-
-    @CommandBody(permission = "enable", optional = true)
+    @CommandBody(permission = "enable", aliases = ["e"], optional = true)
     val enable = subCommand {
         dynamic {
-            suggestion<ProxyPlayer> { _, _ ->
+            suggestion<ProxyCommandSender>(true) { _, _ ->
                 disablePlugins
             }
-            execute<ProxyPlayer> { sender, _, argument ->
-                enablePlugins.add(argument)
-                if (implementations<IPluginManager>().enablePlugin(argument, sender)) {
-                    disablePlugins.remove(argument)
+            execute<ProxyCommandSender> { sender, _, argument ->
+                when (implementations<IPluginManager>().enablePlugin(argument, sender)) {
+                    Result.SUCCESS -> {
+                        disablePlugins.remove(argument)
+                        enablePlugins.add(argument)
+                    }
+                    Result.FAIL -> disablePlugins.remove(argument)
+                    Result.NOTFOUND -> {
+                        sender.sendLang("commands-unknown", argument)
+                    }
                 }
             }
         }
     }
 
-    @CommandBody(permission = "disable", optional = true)
+    @CommandBody(permission = "disable", aliases = ["d"], optional = true)
     val disable = subCommand {
         dynamic {
-            suggestion<ProxyPlayer> { _, _ ->
+            suggestion<ProxyCommandSender>(true) { _, _ ->
                 enablePlugins
             }
-            execute<ProxyPlayer> { sender, _, argument ->
-                if (implementations<IPluginManager>().disablePlugin(argument, sender)) {
-                    enablePlugins.remove(argument)
-                    disablePlugins.add(argument)
+            execute<ProxyCommandSender> { sender, _, argument ->
+                when (implementations<IPluginManager>().disablePlugin(argument, sender)) {
+                    Result.FAIL -> enablePlugins.remove(argument)
+                    Result.SUCCESS -> {
+                        enablePlugins.remove(argument)
+                        disablePlugins.add(argument)
+                    }
+                    Result.NOTFOUND -> {
+                        sender.sendLang("commands-unknown", argument)
+                    }
                 }
             }
         }
     }
 
-    @CommandBody(permission = "load", optional = true)
+    @CommandBody(permission = "load", aliases = ["l"], optional = true)
     val load = subCommand {
-        dynamic {
-            suggestion<ProxyPlayer> { _, _ ->
+        dynamic(optional = true) {
+            suggestion<ProxyCommandSender>(true) { _, _ ->
                 loadPlugins
             }
-            execute<ProxyPlayer> { sender, _, argument ->
-                if (implementations<IPluginManager>().loadPlugin(argument, sender)) {
-                    loadPlugins.remove(argument)
-                    enablePlugins.add(argument)
+            execute<ProxyCommandSender> { sender, _, argument ->
+                when (implementations<IPluginManager>().loadPlugin(argument, sender)) {
+                    Result.SUCCESS -> {
+                        loadPlugins.remove(argument)
+                        enablePlugins.add(argument)
+                    }
+                    Result.FAIL -> loadPlugins.remove(argument)
+                    Result.NOTFOUND -> {
+                        sender.sendLang("commands-load-already-running", argument)
+                    }
                 }
             }
         }
     }
 
-    @CommandBody(permission = "unload", optional = true)
+    @CommandBody(permission = "unload", aliases = ["u"], optional = true)
     val unload = subCommand {
-        dynamic {
-            suggestion<ProxyPlayer> { _, _ ->
+        dynamic(optional = true) {
+            suggestion<ProxyCommandSender>(true) { _, _ ->
                 enablePlugins
             }
-            execute<ProxyPlayer> { sender, _, argument ->
-                if (implementations<IPluginManager>().unloadPlugin(argument, sender)) {
-                    enablePlugins.remove(argument)
+            execute<ProxyCommandSender> { sender, _, argument ->
+                when (implementations<IPluginManager>().unloadPlugin(argument, sender)) {
+                    Result.FAIL, Result.SUCCESS -> enablePlugins.remove(argument)
+                    Result.NOTFOUND -> {
+                        sender.sendLang("commands-unknown", argument)
+                    }
                 }
             }
         }
     }
 
-    @CommandBody(permission = "reload", optional = true)
+    @CommandBody(permission = "reload", aliases = ["r"], optional = true)
     val reload = subCommand {
-        dynamic {
-            suggestion<ProxyPlayer> { _, _ ->
+        dynamic(optional = true) {
+            suggestion<ProxyCommandSender>(true) { _, _ ->
                 enablePlugins
             }
-            execute<ProxyPlayer> { sender, _, argument ->
-                implementations<IPluginManager>().reloadPlugin(argument, sender)
+            execute<ProxyCommandSender> { sender, _, argument ->
+                when (implementations<IPluginManager>().reloadPlugin(argument, sender)) {
+                    Result.SUCCESS -> { }
+                    Result.FAIL -> enablePlugins.remove(argument)
+                    Result.NOTFOUND -> {
+                        sender.sendLang("commands-unknown", argument)
+                    }
+                }
             }
         }
     }
 
-    @CommandBody(permission = "menu", optional = true)
+    @CommandBody(permission = "menu", aliases = ["m"], optional = true)
     val menu = subCommand {
         execute<ProxyPlayer> { sender, _, _ ->
             MainMenu.open(sender.cast())
