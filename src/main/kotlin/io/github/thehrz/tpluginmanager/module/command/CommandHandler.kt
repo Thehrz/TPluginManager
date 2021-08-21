@@ -138,6 +138,13 @@ object CommandHandler {
         }
     }
 
+    @CommandBody(permission = "clear", aliases = ["c"], optional = true)
+    val clear = subCommand {
+        execute<ProxyPlayer> { sender, _, _ ->
+
+        }
+    }
+
     // 借鉴一下下TrMenu~
     private fun generateMainHelper(proxySender: ProxyCommandSender) {
         proxySender.sendMessage("")

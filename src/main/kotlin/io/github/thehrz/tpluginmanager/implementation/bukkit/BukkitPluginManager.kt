@@ -174,4 +174,8 @@ class BukkitPluginManager : IPluginManager {
 
         return Result.SUCCESS
     }
+
+    override fun clear(sender: ProxyCommandSender) {
+        TODO("Not yet implemented")
+    }
 }

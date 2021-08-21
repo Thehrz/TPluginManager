@@ -20,6 +20,7 @@ commands-unload-plugins-list: '&8[&3TPluginManager&8][&bINFO&8] &r插件 &2{0}&r
 commands-reload-description: '重载'
 commands-menu-description: '打开主菜单'
 commands-unknown: '&8[&3TPluginManager&8][&eWARN&8] &r未知插件 &2{0}&r。'
+commands-clear-confirm: '&8[&3TPluginManager&8][&eWARN&8] &4&l请注意！你正在进行敏感操作: 清理plugins下已卸载插件的数据目录'
 menu-not-player: '&8[&3TPluginManager&8][&eWARN&8] &r你无法打开此菜单。'
 menu-main-title: 'TPluginManager 主菜单'
 menu-main-task-manager-name: '&a任务管理器'

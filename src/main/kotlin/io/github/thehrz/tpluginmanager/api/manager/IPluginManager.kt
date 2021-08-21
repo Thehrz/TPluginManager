@@ -132,4 +132,8 @@ interface IPluginManager {
             return Result.NOTFOUND
         }
     }
+
+    fun clear(sender: ProxyCommandSender) {
+
+    }
 }

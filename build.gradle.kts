@@ -19,7 +19,7 @@ taboolib {
     install("module-configuration")
     install("platform-bukkit", "platform-bungee", "platform-nukkit", "platform-velocity")
     install("platform-sponge-api7", "platform-sponge-api8")
-    version = "6.0.0-pre50"
+    version = "6.0.0-pre52"
 }
 
 
@@ -35,7 +35,7 @@ dependencies {
     compileOnly("ink.ptms.core:v11600:11600:all")
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib")
     compileOnly("cn.nukkit:nukkit:2.0.0-SNAPSHOT")
-//    compileOnly("net.md_5.bungee:BungeeCord:1:all")
+    compileOnly("net.md_5.bungee:BungeeCord:1:all")
 //    compileOnly("org.spongepowered:spongeapi:7.2.0") {
 //        exclude("org.apache.logging.log4j")
 //    }
