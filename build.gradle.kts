@@ -19,7 +19,7 @@ taboolib {
     install("module-configuration")
     install("platform-bukkit", "platform-bungee", "platform-nukkit", "platform-velocity")
     install("platform-sponge-api7", "platform-sponge-api8")
-    version = "6.0.0-pre52"
+    version = "6.0.0-pre55"
 }
 
 
