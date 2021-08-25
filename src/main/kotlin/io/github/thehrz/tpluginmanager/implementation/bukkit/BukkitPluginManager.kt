@@ -1,7 +1,11 @@
 package io.github.thehrz.tpluginmanager.implementation.bukkit
 
 import io.github.thehrz.tpluginmanager.api.adaptPlugin
-import io.github.thehrz.tpluginmanager.api.adaptPluginNullable
+import io.github.thehrz.tpluginmanager.api.adaptPluginOrNull
+import io.github.thehrz.tpluginmanager.api.event.PluginDisableEvent
+import io.github.thehrz.tpluginmanager.api.event.PluginEnableEvent
+import io.github.thehrz.tpluginmanager.api.event.PluginLoadEvent
+import io.github.thehrz.tpluginmanager.api.event.PluginUnloadEvent
 import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
 import io.github.thehrz.tpluginmanager.api.manager.Result
 import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
@@ -46,7 +50,7 @@ class BukkitPluginManager : IPluginManager {
     override fun getPluginManager(): PluginManager =
         Bukkit.getPluginManager()
 
-    override fun getPlugin(name: String): ProxyPlugin? = adaptPluginNullable(pluginsMap[name])
+    override fun getPlugin(name: String): ProxyPlugin? = adaptPluginOrNull(pluginsMap[name])
 
     override fun getProxyPluginsList(): List<ProxyPlugin> =
         pluginsList.map { adaptPlugin(it) }
@@ -71,7 +75,7 @@ class BukkitPluginManager : IPluginManager {
             iterator.let { mutableIterator ->
                 mutableIterator.next().value.let {
                     try {
-                        if ((it is PluginCommand && it.plugin == plugin) || JavaPlugin.getProvidingPlugin(it.javaClass) == plugin) {
+                        if (it is PluginCommand && it.plugin == plugin || JavaPlugin.getProvidingPlugin(it.javaClass) == plugin) {
                             it.unregister(commandMap as @NotNull CommandMap)
                             mutableIterator.remove()
                         }
@@ -83,6 +87,10 @@ class BukkitPluginManager : IPluginManager {
     }
 
     override fun enablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
+        if (PluginEnableEvent(proxyPlugin).call()) {
+            return Result.FAIL
+        }
+
         // Bukkit-API 开启插件
         getPluginManager().enablePlugin(proxyPlugin.cast())
         sender.sendLang("commands-enable-api", proxyPlugin.name, "Bukkit")
@@ -93,6 +101,10 @@ class BukkitPluginManager : IPluginManager {
     }
 
     override fun disablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
+        if (PluginDisableEvent(proxyPlugin).call()) {
+            return Result.FAIL
+        }
+
         val plugin = proxyPlugin.cast<Plugin>()
         // Bukkit-API 关闭插件
         getPluginManager().disablePlugin(plugin)
@@ -107,6 +119,10 @@ class BukkitPluginManager : IPluginManager {
     }
 
     override fun loadPlugin(pluginFile: File, sender: ProxyCommandSender): Result {
+        if (PluginLoadEvent(pluginFile).call()) {
+            return Result.FAIL
+        }
+
         val plugin: Plugin?
         try {
             plugin = getPluginManager().loadPlugin(pluginFile)
@@ -128,6 +144,7 @@ class BukkitPluginManager : IPluginManager {
             it.onLoad()
             enablePlugin(adaptPlugin(it), sender)
         }
+
 
         return Result.SUCCESS
     }
@@ -154,10 +171,15 @@ class BukkitPluginManager : IPluginManager {
 
         sender.sendLang("commands-unknown", name)
 
+
         return Result.SUCCESS
     }
 
     override fun unloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
+        if (PluginUnloadEvent(proxyPlugin).call()) {
+            return Result.FAIL
+        }
+
         disablePlugin(proxyPlugin, console())
         sender.sendLang("commands-unload-disable", proxyPlugin.name)
 
@@ -169,10 +191,13 @@ class BukkitPluginManager : IPluginManager {
     }
 
     override fun reloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
-        disablePlugin(proxyPlugin, sender)
-        enablePlugin(proxyPlugin, sender)
-
-        return Result.SUCCESS
+        disablePlugin(proxyPlugin, sender).let {
+            return if (it === Result.SUCCESS) {
+                enablePlugin(proxyPlugin, sender)
+            } else {
+                it
+            }
+        }
     }
 
     override fun clear(sender: ProxyCommandSender) {

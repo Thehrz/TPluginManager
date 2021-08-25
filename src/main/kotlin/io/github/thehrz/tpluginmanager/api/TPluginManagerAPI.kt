@@ -15,7 +15,7 @@ fun adaptPlugin(any: Any): ProxyPlugin =
         else -> throw RuntimeException("not support")
     }
 
-fun adaptPluginNullable(any: Any?): ProxyPlugin? =
+fun adaptPluginOrNull(any: Any?): ProxyPlugin? =
     when (any) {
         is org.bukkit.plugin.Plugin -> BukkitPlugin(any)
         is cn.nukkit.plugin.Plugin -> NukkitPlugin(any)

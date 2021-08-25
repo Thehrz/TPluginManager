@@ -3,7 +3,7 @@ package io.github.thehrz.tpluginmanager.implementation.nukkit
 import cn.nukkit.plugin.Plugin
 import cn.nukkit.plugin.PluginManager
 import io.github.thehrz.tpluginmanager.api.adaptPlugin
-import io.github.thehrz.tpluginmanager.api.adaptPluginNullable
+import io.github.thehrz.tpluginmanager.api.adaptPluginOrNull
 import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
 import io.github.thehrz.tpluginmanager.api.manager.Result
 import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
@@ -20,7 +20,7 @@ class NukkitPluginManager : IPluginManager {
         NukkitPlugin.getInstance().server.pluginManager
 
     override fun getPlugin(name: String): ProxyPlugin? =
-        adaptPluginNullable(getPluginManager().getPlugin(name))
+        adaptPluginOrNull(getPluginManager().getPlugin(name))
 
     override fun getProxyPluginsList(): List<ProxyPlugin> =
         getPluginManager().plugins.map { adaptPlugin(it.value) }

@@ -1,10 +1,11 @@
 package io.github.thehrz.tpluginmanager.implementation.bungeecore
 
 import io.github.thehrz.tpluginmanager.api.adaptPlugin
-import io.github.thehrz.tpluginmanager.api.adaptPluginNullable
+import io.github.thehrz.tpluginmanager.api.adaptPluginOrNull
 import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
 import io.github.thehrz.tpluginmanager.api.manager.Result
 import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
+import net.md_5.bungee.api.plugin.Plugin
 import net.md_5.bungee.api.plugin.PluginManager
 import taboolib.common.platform.ProxyCommandSender
 import taboolib.platform.BungeePlugin
@@ -16,7 +17,7 @@ class BungeeCordPluginManager : IPluginManager {
 
 
     override fun getPlugin(name: String): ProxyPlugin? =
-        adaptPluginNullable(getPluginManager().getPlugin(name))
+        adaptPluginOrNull(getPluginManager().getPlugin(name))
 
 
     override fun getProxyPluginsList(): List<ProxyPlugin> =
@@ -28,7 +29,8 @@ class BungeeCordPluginManager : IPluginManager {
 
 
     override fun enablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
-        TODO("Not yet implemented")
+        proxyPlugin.cast<Plugin>().onEnable()
+        return Result.SUCCESS
     }
 
     override fun disablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
