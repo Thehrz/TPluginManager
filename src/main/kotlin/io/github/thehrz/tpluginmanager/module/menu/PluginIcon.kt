@@ -11,9 +11,10 @@ import taboolib.module.lang.asLangText
 /**
  * 插件图标，用于在PluginsListMenu中显示单个插件
  *
+ * @param proxyPlugin 代理插件实例
  * @see PluginsListMenu
  */
-internal class PluginIcon(proxyPlugin: ProxyPlugin) {
+class PluginIcon(proxyPlugin: ProxyPlugin) {
     val isEnabled: Boolean = proxyPlugin.isEnabled
     val name: String = proxyPlugin.name
     private var version: String = proxyPlugin.version
