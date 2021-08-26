@@ -2,6 +2,7 @@ plugins {
     java
     id("io.izzel.taboolib") version "1.26"
     id("org.jetbrains.kotlin.jvm") version "1.5.30"
+    id("org.jetbrains.dokka") version "1.5.0"
 }
 
 taboolib {

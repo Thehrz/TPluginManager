@@ -13,6 +13,10 @@ import taboolib.platform.BukkitPlugin
 import java.io.File
 import java.nio.file.*
 
+/**
+ * 插件目录变更检查器
+ * 用于检测plugins目录下的变更, 如果目录有新插件增加且在配置中开启此功能, 即会自动加载此插件
+ */
 object PluginFileWatcher {
     private lateinit var watchService: WatchService
     private val file = File("plugins")

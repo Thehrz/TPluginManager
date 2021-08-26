@@ -14,6 +14,9 @@ import taboolib.module.lang.sendLang
 import taboolib.platform.NukkitPlugin
 import java.io.File
 
+/**
+ * Nukkit平台插件管理器实现
+ */
 @PlatformImplementation(Platform.NUKKIT)
 class NukkitPluginManager : IPluginManager {
     override fun getPluginManager(): PluginManager =

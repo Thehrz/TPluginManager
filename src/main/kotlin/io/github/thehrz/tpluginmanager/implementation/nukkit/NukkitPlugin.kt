@@ -3,6 +3,9 @@ package io.github.thehrz.tpluginmanager.implementation.nukkit
 import cn.nukkit.plugin.Plugin
 import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
 
+/**
+ * Nukkit平台插件类
+ */
 class NukkitPlugin(val plugin: Plugin) : ProxyPlugin {
     override val name: String
         get() = plugin.name

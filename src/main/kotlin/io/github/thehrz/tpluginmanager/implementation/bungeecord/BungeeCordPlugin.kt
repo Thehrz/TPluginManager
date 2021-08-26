@@ -3,6 +3,9 @@ package io.github.thehrz.tpluginmanager.implementation.bungeecore
 import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
 import net.md_5.bungee.api.plugin.Plugin
 
+/**
+ * BungeeCord平台插件类
+ */
 class BungeeCordPlugin(val plugin: Plugin) : ProxyPlugin {
     override val name: String
         get() = plugin.description.name

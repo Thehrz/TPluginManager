@@ -15,15 +15,24 @@ import taboolib.module.chat.TellrawJson
 import taboolib.module.lang.asLangText
 import taboolib.module.lang.sendLang
 
+/**
+ * TPluginManager命令实现
+ */
 @CommandHeader(name = "tpluginmanager", aliases = ["tpm", "pluginmanager"], permission = "tpluginmanager.access")
 object CommandHandler {
-    // 已经开启的插件
+    /**
+     * 已经开启的插件
+     */
     private val enablePlugins = implementations<IPluginManager>().getPluginsListString().toMutableList()
 
-    // 已经关闭的插件
+    /**
+     * 已经关闭的插件
+     */
     private val disablePlugins = mutableListOf<String>()
 
-    // 准备加载的插件
+    /**
+     * 准备加载的插件
+     */
     val loadPlugins = mutableListOf<String>()
 
     @CommandBody

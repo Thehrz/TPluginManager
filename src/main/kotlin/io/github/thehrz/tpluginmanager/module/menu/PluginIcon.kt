@@ -2,12 +2,18 @@ package io.github.thehrz.tpluginmanager.module.menu
 
 import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
 import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
+import io.github.thehrz.tpluginmanager.module.menu.impl.PluginsListMenu
 import org.bukkit.ChatColor
 import taboolib.common.platform.function.console
 import taboolib.common.platform.function.implementations
 import taboolib.module.lang.asLangText
 
-class PluginIcon(proxyPlugin: ProxyPlugin) {
+/**
+ * 插件图标，用于在PluginsListMenu中显示单个插件
+ *
+ * @see PluginsListMenu
+ */
+internal class PluginIcon(proxyPlugin: ProxyPlugin) {
     val isEnabled: Boolean = proxyPlugin.isEnabled
     val name: String = proxyPlugin.name
     private var version: String = proxyPlugin.version

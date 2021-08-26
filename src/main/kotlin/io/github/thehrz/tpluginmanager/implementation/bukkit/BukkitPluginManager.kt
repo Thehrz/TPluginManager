@@ -26,6 +26,9 @@ import taboolib.module.lang.sendLang
 import taboolib.platform.BukkitPlugin
 import java.io.File
 
+/**
+ * Bukkit平台插件管理器实现
+ */
 @PlatformImplementation(Platform.BUKKIT)
 class BukkitPluginManager : IPluginManager {
     private var lookupNames: MutableMap<String, Plugin>

@@ -3,7 +3,9 @@ package io.github.thehrz.tpluginmanager.implementation.bukkit
 import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
 import org.bukkit.plugin.Plugin
 
-
+/**
+ * Bukkit平台插件类
+ */
 class BukkitPlugin(val plugin: Plugin) : ProxyPlugin {
     override val name: String
         get() = plugin.name

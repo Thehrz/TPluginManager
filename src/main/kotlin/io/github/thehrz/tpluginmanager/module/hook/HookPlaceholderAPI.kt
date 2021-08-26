@@ -7,6 +7,9 @@ import taboolib.common.platform.Awake
 import taboolib.common.platform.function.implementations
 import taboolib.platform.compat.PlaceholderExpansion
 
+/**
+ * PlaceholderAPI支持
+ */
 @Awake(LifeCycle.ENABLE)
 object HookPlaceholderAPI : PlaceholderExpansion {
     override val identifier: String = "TPluginManager"
