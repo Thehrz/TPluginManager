@@ -11,15 +11,23 @@ taboolib {
             name("Thehrz")
         }
     }
-    install("common")
-    install("common-5")
-    install("module-ui")
-    install("module-chat")
-    install("module-lang")
-    install("module-metrics")
-    install("module-configuration")
-    install("platform-bukkit", "platform-bungee", "platform-nukkit", "platform-velocity")
-    install("platform-sponge-api7", "platform-sponge-api8")
+    install(
+        "common",
+        "common-5",
+        "module-ui",
+        "module-chat",
+        "module-lang",
+        "module-metrics",
+        "module-configuration",
+        "platform-bukkit",
+        "platform-bungee",
+        "platform-nukkit",
+        "platform-velocity",
+        "platform-sponge-api7",
+        "platform-sponge-api8"
+    )
+
+    classifier = null
     version = "6.0.0-pre55"
 }
 
