@@ -1,6 +1,7 @@
 ﻿package io.github.thehrz.tpluginmanager.module.menu
 
 import io.github.thehrz.tpluginmanager.api.plugin.PluginIcon
+import io.github.thehrz.tpluginmanager.api.pluginManagerImpl
 import io.github.thehrz.tpluginmanager.utils.Heads
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player

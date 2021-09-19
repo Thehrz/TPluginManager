@@ -1,5 +1,6 @@
 package io.github.thehrz.tpluginmanager.api.plugin
 
+import io.github.thehrz.tpluginmanager.api.pluginManagerImpl
 import io.github.thehrz.tpluginmanager.module.menu.PluginsListMenu
 import org.bukkit.ChatColor
 import taboolib.common.platform.function.console

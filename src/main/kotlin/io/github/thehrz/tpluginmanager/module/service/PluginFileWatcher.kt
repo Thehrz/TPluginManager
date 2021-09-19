@@ -1,6 +1,7 @@
 package io.github.thehrz.tpluginmanager.module.service
 
 import io.github.thehrz.tpluginmanager.TPluginManager
+import io.github.thehrz.tpluginmanager.api.pluginManagerImpl
 import io.github.thehrz.tpluginmanager.module.command.CommandHandler
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
