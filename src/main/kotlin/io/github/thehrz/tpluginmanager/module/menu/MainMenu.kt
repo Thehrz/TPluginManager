@@ -1,4 +1,4 @@
-package io.github.thehrz.tpluginmanager.module.menu.impl
+package io.github.thehrz.tpluginmanager.module.menu
 
 import io.github.thehrz.tpluginmanager.module.taskmanager.TaskManagerMenu
 import org.bukkit.entity.Player

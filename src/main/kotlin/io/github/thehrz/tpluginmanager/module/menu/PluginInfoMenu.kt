@@ -1,6 +1,6 @@
-package io.github.thehrz.tpluginmanager.module.menu.impl
+package io.github.thehrz.tpluginmanager.module.menu
 
-import io.github.thehrz.tpluginmanager.module.menu.PluginIcon
+import io.github.thehrz.tpluginmanager.api.plugin.PluginIcon
 import io.github.thehrz.tpluginmanager.utils.Heads
 import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
@@ -14,7 +14,7 @@ import taboolib.platform.util.ItemBuilder
 import taboolib.platform.util.buildItem
 import java.util.*
 
-class PluginInfoMenu(val pluginIcon: PluginIcon) : Menu(pluginIcon.name) {
+class PluginInfoMenu(private val pluginIcon: PluginIcon) : Menu(pluginIcon.name) {
     override fun build(): Inventory =
         buildMenu<Basic> {
             handLocked(true)

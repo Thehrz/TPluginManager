@@ -1,7 +1,7 @@
-﻿package io.github.thehrz.tpluginmanager.module.menu.impl
+﻿package io.github.thehrz.tpluginmanager.module.menu
 
 import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
-import io.github.thehrz.tpluginmanager.module.menu.PluginIcon
+import io.github.thehrz.tpluginmanager.api.plugin.PluginIcon
 import io.github.thehrz.tpluginmanager.utils.Heads
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
@@ -15,6 +15,12 @@ import taboolib.module.ui.buildMenu
 import taboolib.module.ui.type.Linked
 import taboolib.platform.util.buildItem
 
+val Menu.centeredSlots: List<Int>
+    get() = listOf(
+        9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+        27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 41, 43, 44
+    )
+
 object PluginsListMenu : Menu(console().asLangText("menu-plugins-list-title")) {
     override fun build(): Inventory =
         buildMenu<Linked<PluginIcon>>(title) {
@@ -23,12 +29,7 @@ object PluginsListMenu : Menu(console().asLangText("menu-plugins-list-title")) {
             elements {
                 implementations<IPluginManager>().getProxyPluginsList().map { PluginIcon(it) }
             }
-            slots(
-                listOf(
-                    9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-                    27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 41, 43, 44
-                )
-            )
+            slots(centeredSlots)
             setPreviousPage(46) { _, hasPreviousPage ->
                 buildItem(XMaterial.GREEN_STAINED_GLASS_PANE) {
                     name = if (hasPreviousPage) "&f上一页" else "&8上一页"

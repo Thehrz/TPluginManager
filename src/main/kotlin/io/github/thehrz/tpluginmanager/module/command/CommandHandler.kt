@@ -2,7 +2,7 @@ package io.github.thehrz.tpluginmanager.module.command
 
 import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
 import io.github.thehrz.tpluginmanager.api.manager.Result
-import io.github.thehrz.tpluginmanager.module.menu.impl.MainMenu
+import io.github.thehrz.tpluginmanager.module.menu.MainMenu
 import taboolib.common.platform.ProxyCommandSender
 import taboolib.common.platform.ProxyPlayer
 import taboolib.common.platform.command.CommandBody
@@ -19,7 +19,7 @@ import taboolib.module.lang.sendLang
  * TPluginManager命令实现
  */
 @CommandHeader(name = "tpluginmanager", aliases = ["tpm", "pluginmanager"], permission = "tpluginmanager.access")
-object CommandHandler {
+internal object CommandHandler {
     /**
      * 已经开启的插件
      */
@@ -149,7 +149,7 @@ object CommandHandler {
 
     @CommandBody(permission = "clear", aliases = ["c"], optional = true)
     val clear = subCommand {
-        execute<ProxyPlayer> { sender, _, _ ->
+        execute<ProxyPlayer> { _, _, _ ->
 
         }
     }

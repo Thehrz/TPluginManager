@@ -1,15 +1,14 @@
-package io.github.thehrz.tpluginmanager.module.menu
+package io.github.thehrz.tpluginmanager.api.plugin
 
 import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
-import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
-import io.github.thehrz.tpluginmanager.module.menu.impl.PluginsListMenu
+import io.github.thehrz.tpluginmanager.module.menu.PluginsListMenu
 import org.bukkit.ChatColor
 import taboolib.common.platform.function.console
 import taboolib.common.platform.function.implementations
 import taboolib.module.lang.asLangText
 
 /**
- * 插件图标，用于在PluginsListMenu中显示单个插件
+ * 代理插件图标
  *
  * @param proxyPlugin 代理插件实例
  * @see PluginsListMenu

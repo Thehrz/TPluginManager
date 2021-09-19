@@ -1,5 +1,6 @@
 package io.github.thehrz.tpluginmanager.module.taskmanager
 
+import io.github.thehrz.tpluginmanager.module.menu.centeredSlots
 import io.github.thehrz.tpluginmanager.utils.Heads
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -22,12 +23,7 @@ object TaskManagerMenu : Menu(console().asLangText("menu-task-manager-title")) {
             elements {
                 Bukkit.getScheduler().pendingTasks
             }
-            slots(
-                listOf(
-                    9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-                    27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 41, 43, 44
-                )
-            )
+            slots(centeredSlots)
             setPreviousPage(46) { _, hasPreviousPage ->
                 buildItem(XMaterial.GREEN_STAINED_GLASS_PANE) {
                     name = if (hasPreviousPage) "&f上一页" else "&8上一页"
