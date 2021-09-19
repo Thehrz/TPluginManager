@@ -1,9 +1,15 @@
 package io.github.thehrz.tpluginmanager.api
 
+import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
 import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
 import io.github.thehrz.tpluginmanager.implementation.bukkit.BukkitPlugin
+import io.github.thehrz.tpluginmanager.implementation.bukkit.BukkitPluginManager
 import io.github.thehrz.tpluginmanager.implementation.bungeecore.BungeeCordPlugin
+import io.github.thehrz.tpluginmanager.implementation.bungeecore.BungeeCordPluginManager
 import io.github.thehrz.tpluginmanager.implementation.nukkit.NukkitPlugin
+import io.github.thehrz.tpluginmanager.implementation.nukkit.NukkitPluginManager
+import taboolib.common.platform.Platform
+import taboolib.common.platform.function.runningPlatform
 
 object TPluginManagerAPI
 
@@ -33,4 +39,15 @@ fun adaptPluginOrNull(origin: Any?): ProxyPlugin? =
         is cn.nukkit.plugin.Plugin -> NukkitPlugin(origin)
         is net.md_5.bungee.api.plugin.Plugin -> BungeeCordPlugin(origin)
         else -> null
+    }
+
+/**
+ * 当前平台PluginManager实现
+ */
+val pluginManagerImpl: IPluginManager =
+    when(runningPlatform) {
+        Platform.BUKKIT -> BukkitPluginManager()
+        Platform.BUNGEE -> BungeeCordPluginManager()
+        Platform.NUKKIT -> NukkitPluginManager()
+        else -> throw RuntimeException("not support")
     }

@@ -1,12 +1,10 @@
 package io.github.thehrz.tpluginmanager.module.service
 
 import io.github.thehrz.tpluginmanager.TPluginManager
-import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
 import io.github.thehrz.tpluginmanager.module.command.CommandHandler
 import taboolib.common.LifeCycle
 import taboolib.common.platform.Awake
 import taboolib.common.platform.function.console
-import taboolib.common.platform.function.implementations
 import taboolib.common.platform.function.submit
 import taboolib.module.lang.sendLang
 import taboolib.platform.BukkitPlugin
@@ -52,7 +50,7 @@ object PluginFileWatcher {
                         )
                         if (TPluginManager.config.getBoolean("Service.Auto-Load-Plugins.Enable")) {
                             console().sendLang("service-auto-load-plugins-load")
-                            implementations<IPluginManager>().loadPlugin(pluginFile, console())
+                            pluginManagerImpl.loadPlugin(pluginFile, console())
                         } else {
                             CommandHandler.loadPlugins.add(pluginDescription.name)
                         }

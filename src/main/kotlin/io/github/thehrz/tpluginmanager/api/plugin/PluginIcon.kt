@@ -1,10 +1,8 @@
 package io.github.thehrz.tpluginmanager.api.plugin
 
-import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
 import io.github.thehrz.tpluginmanager.module.menu.PluginsListMenu
 import org.bukkit.ChatColor
 import taboolib.common.platform.function.console
-import taboolib.common.platform.function.implementations
 import taboolib.module.lang.asLangText
 
 /**
@@ -49,7 +47,7 @@ class PluginIcon(proxyPlugin: ProxyPlugin) {
         if (proxyPlugin.softDepend.isNotEmpty()) {
             proxyPlugin.softDepend.forEach { softDepend ->
                 this.softDepend +=
-                    implementations<IPluginManager>().getPlugin(softDepend)
+                    pluginManagerImpl.getPlugin(softDepend)
                         ?.let { ChatColor.GREEN.toString() + "$softDepend " }
                         ?: let { ChatColor.RED.toString() + "$softDepend " }
             }
@@ -58,7 +56,7 @@ class PluginIcon(proxyPlugin: ProxyPlugin) {
         if (proxyPlugin.depend.isNotEmpty()) {
             proxyPlugin.depend.forEach { depend ->
                 this.depend +=
-                    implementations<IPluginManager>().getPlugin(depend)
+                    pluginManagerImpl.getPlugin(depend)
                         ?.let { ChatColor.GREEN.toString() + "$depend " }
                         ?: let { ChatColor.RED.toString() + "$depend " }
             }

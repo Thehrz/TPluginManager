@@ -1,13 +1,11 @@
 ﻿package io.github.thehrz.tpluginmanager.module.menu
 
-import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
 import io.github.thehrz.tpluginmanager.api.plugin.PluginIcon
 import io.github.thehrz.tpluginmanager.utils.Heads
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
 import taboolib.common.platform.function.console
-import taboolib.common.platform.function.implementations
 import taboolib.library.xseries.XMaterial
 import taboolib.module.lang.asLangText
 import taboolib.module.ui.Menu
@@ -27,7 +25,7 @@ object PluginsListMenu : Menu(console().asLangText("menu-plugins-list-title")) {
             handLocked(true)
             rows(6)
             elements {
-                implementations<IPluginManager>().getProxyPluginsList().map { PluginIcon(it) }
+                pluginManagerImpl.getProxyPluginsList().map { PluginIcon(it) }
             }
             slots(centeredSlots)
             setPreviousPage(46) { _, hasPreviousPage ->

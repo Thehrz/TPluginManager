@@ -1,7 +1,7 @@
 package io.github.thehrz.tpluginmanager.module.command
 
-import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
 import io.github.thehrz.tpluginmanager.api.manager.Result
+import io.github.thehrz.tpluginmanager.api.pluginManagerImpl
 import io.github.thehrz.tpluginmanager.module.menu.MainMenu
 import taboolib.common.platform.ProxyCommandSender
 import taboolib.common.platform.ProxyPlayer
@@ -9,7 +9,6 @@ import taboolib.common.platform.command.CommandBody
 import taboolib.common.platform.command.CommandHeader
 import taboolib.common.platform.command.mainCommand
 import taboolib.common.platform.command.subCommand
-import taboolib.common.platform.function.implementations
 import taboolib.common.platform.function.pluginVersion
 import taboolib.module.chat.TellrawJson
 import taboolib.module.lang.asLangText
@@ -23,7 +22,7 @@ internal object CommandHandler {
     /**
      * 已经开启的插件
      */
-    private val enablePlugins = implementations<IPluginManager>().getPluginsListString().toMutableList()
+    private val enablePlugins = pluginManagerImpl.getPluginsListString().toMutableList()
 
     /**
      * 已经关闭的插件
@@ -49,7 +48,7 @@ internal object CommandHandler {
                 disablePlugins
             }
             execute<ProxyCommandSender> { sender, _, argument ->
-                when (implementations<IPluginManager>().enablePlugin(argument, sender)) {
+                when (pluginManagerImpl.enablePlugin(argument, sender)) {
                     Result.SUCCESS -> {
                         disablePlugins.remove(argument)
                         enablePlugins.add(argument)
@@ -70,7 +69,7 @@ internal object CommandHandler {
                 enablePlugins
             }
             execute<ProxyCommandSender> { sender, _, argument ->
-                when (implementations<IPluginManager>().disablePlugin(argument, sender)) {
+                when (pluginManagerImpl.disablePlugin(argument, sender)) {
                     Result.FAIL -> enablePlugins.remove(argument)
                     Result.SUCCESS -> {
                         enablePlugins.remove(argument)
@@ -91,7 +90,7 @@ internal object CommandHandler {
                 loadPlugins
             }
             execute<ProxyCommandSender> { sender, _, argument ->
-                when (implementations<IPluginManager>().loadPlugin(argument, sender)) {
+                when (pluginManagerImpl.loadPlugin(argument, sender)) {
                     Result.SUCCESS -> {
                         loadPlugins.remove(argument)
                         enablePlugins.add(argument)
@@ -112,7 +111,7 @@ internal object CommandHandler {
                 enablePlugins
             }
             execute<ProxyCommandSender> { sender, _, argument ->
-                when (implementations<IPluginManager>().unloadPlugin(argument, sender)) {
+                when (pluginManagerImpl.unloadPlugin(argument, sender)) {
                     Result.FAIL, Result.SUCCESS -> enablePlugins.remove(argument)
                     Result.NOTFOUND -> {
                         sender.sendLang("commands-unknown", argument)
@@ -129,7 +128,7 @@ internal object CommandHandler {
                 enablePlugins
             }
             execute<ProxyCommandSender> { sender, _, argument ->
-                when (implementations<IPluginManager>().reloadPlugin(argument, sender)) {
+                when (pluginManagerImpl.reloadPlugin(argument, sender)) {
                     Result.SUCCESS -> { }
                     Result.FAIL -> enablePlugins.remove(argument)
                     Result.NOTFOUND -> {
