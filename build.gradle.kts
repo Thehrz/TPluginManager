@@ -22,13 +22,13 @@ taboolib {
         "platform-bukkit",
         "platform-bungee",
         "platform-nukkit",
-        "platform-velocity",
+//        "platform-velocity",
         "platform-sponge-api7",
         "platform-sponge-api8"
     )
 
     classifier = null
-    version = "6.0.0-pre55"
+    version = "6.0.2-10"
 }
 
 
