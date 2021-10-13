@@ -18,7 +18,7 @@ import taboolib.module.lang.sendLang
  * TPluginManager命令实现
  */
 @CommandHeader(name = "tpluginmanager", aliases = ["tpm", "pluginmanager"], permission = "tpluginmanager.access")
-internal object CommandHandler {
+object CommandHandler {
     /**
      * 已经开启的插件
      */
@@ -43,7 +43,7 @@ internal object CommandHandler {
 
     @CommandBody(permission = "enable", aliases = ["e"], optional = true)
     val enable = subCommand {
-        dynamic {
+        dynamic(optional = false) {
             suggestion<ProxyCommandSender>(true) { _, _ ->
                 disablePlugins
             }

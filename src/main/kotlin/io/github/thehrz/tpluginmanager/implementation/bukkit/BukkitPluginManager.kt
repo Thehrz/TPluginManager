@@ -17,8 +17,6 @@ import org.bukkit.command.SimpleCommandMap
 import org.bukkit.plugin.*
 import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.annotations.NotNull
-import taboolib.common.platform.Platform
-import taboolib.common.platform.PlatformImplementation
 import taboolib.common.platform.ProxyCommandSender
 import taboolib.common.platform.function.console
 import taboolib.common.reflect.Ref
@@ -29,7 +27,6 @@ import java.io.File
 /**
  * Bukkit平台插件管理器实现
  */
-@PlatformImplementation(Platform.BUKKIT)
 class BukkitPluginManager : IPluginManager {
     private var lookupNames: MutableMap<String, Plugin>
     private val pluginsMap by lazy { pluginsList.associateBy { it.name }.toMutableMap() }
@@ -104,7 +101,7 @@ class BukkitPluginManager : IPluginManager {
     }
 
     override fun disablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
-        if (PluginDisableEvent(proxyPlugin).call()) {
+        if (!PluginDisableEvent(proxyPlugin).call()) {
             return Result.FAIL
         }
 
@@ -122,13 +119,12 @@ class BukkitPluginManager : IPluginManager {
     }
 
     override fun loadPlugin(pluginFile: File, sender: ProxyCommandSender): Result {
-        if (PluginLoadEvent(pluginFile).call()) {
+        if (!PluginLoadEvent(pluginFile).call()) {
             return Result.FAIL
         }
 
-        val plugin: Plugin?
-        try {
-            plugin = getPluginManager().loadPlugin(pluginFile)
+        val plugin: Plugin? = try {
+            getPluginManager().loadPlugin(pluginFile)
         } catch (e: InvalidDescriptionException) {
             sender.sendLang("commands-load-invalid-description", pluginFile.name)
             e.printStackTrace()
@@ -147,7 +143,6 @@ class BukkitPluginManager : IPluginManager {
             it.onLoad()
             enablePlugin(adaptPlugin(it), sender)
         }
-
 
         return Result.SUCCESS
     }
@@ -174,12 +169,11 @@ class BukkitPluginManager : IPluginManager {
 
         sender.sendLang("commands-unknown", name)
 
-
         return Result.SUCCESS
     }
 
     override fun unloadPlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
-        if (PluginUnloadEvent(proxyPlugin).call()) {
+        if (!PluginUnloadEvent(proxyPlugin).call()) {
             return Result.FAIL
         }
 

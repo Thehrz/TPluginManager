@@ -8,4 +8,4 @@ import java.io.File
  *
  * @param pluginFile 插件文件
  */
-class PluginLoadEvent(pluginFile: File) : ProxyEvent()
+class PluginLoadEvent(val pluginFile: File) : ProxyEvent()

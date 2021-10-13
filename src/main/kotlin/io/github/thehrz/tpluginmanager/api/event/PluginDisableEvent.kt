@@ -8,4 +8,4 @@ import taboolib.common.platform.event.ProxyEvent
  *
  * @param plugin 插件实例
  */
-class PluginDisableEvent(plugin: ProxyPlugin) : ProxyEvent()
+class PluginDisableEvent(val plugin: ProxyPlugin) : ProxyEvent()

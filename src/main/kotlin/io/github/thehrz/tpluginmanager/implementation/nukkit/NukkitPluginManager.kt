@@ -7,8 +7,6 @@ import io.github.thehrz.tpluginmanager.api.adaptPluginOrNull
 import io.github.thehrz.tpluginmanager.api.manager.IPluginManager
 import io.github.thehrz.tpluginmanager.api.manager.Result
 import io.github.thehrz.tpluginmanager.api.plugin.ProxyPlugin
-import taboolib.common.platform.Platform
-import taboolib.common.platform.PlatformImplementation
 import taboolib.common.platform.ProxyCommandSender
 import taboolib.module.lang.sendLang
 import taboolib.platform.NukkitPlugin
@@ -17,7 +15,6 @@ import java.io.File
 /**
  * Nukkit平台插件管理器实现
  */
-@PlatformImplementation(Platform.NUKKIT)
 class NukkitPluginManager : IPluginManager {
     override fun getPluginManager(): PluginManager =
         NukkitPlugin.getInstance().server.pluginManager

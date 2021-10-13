@@ -11,8 +11,6 @@ import io.github.thehrz.tpluginmanager.implementation.nukkit.NukkitPluginManager
 import taboolib.common.platform.Platform
 import taboolib.common.platform.function.runningPlatform
 
-object TPluginManagerAPI
-
 /**
  * 将原始平台插件转换为代理插件
  *
@@ -44,10 +42,10 @@ fun adaptPluginOrNull(origin: Any?): ProxyPlugin? =
 /**
  * 当前平台PluginManager实现
  */
-val pluginManagerImpl: IPluginManager =
-    when(runningPlatform) {
-        Platform.BUKKIT -> BukkitPluginManager()
-        Platform.BUNGEE -> BungeeCordPluginManager()
-        Platform.NUKKIT -> NukkitPluginManager()
-        else -> throw RuntimeException("not support")
-    }
+val pluginManagerImpl: IPluginManager
+    get() = when (runningPlatform) {
+            Platform.BUKKIT -> BukkitPluginManager()
+            Platform.BUNGEE -> BungeeCordPluginManager()
+            Platform.NUKKIT -> NukkitPluginManager()
+            else -> throw RuntimeException("not support")
+        }
