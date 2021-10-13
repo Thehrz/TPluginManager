@@ -19,6 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.annotations.NotNull
 import taboolib.common.platform.ProxyCommandSender
 import taboolib.common.platform.function.console
+import taboolib.common.platform.function.runningPlatform
 import taboolib.common.reflect.Ref
 import taboolib.module.lang.sendLang
 import taboolib.platform.BukkitPlugin
@@ -87,7 +88,7 @@ class BukkitPluginManager : IPluginManager {
     }
 
     override fun enablePlugin(proxyPlugin: ProxyPlugin, sender: ProxyCommandSender): Result {
-        if (PluginEnableEvent(proxyPlugin).call()) {
+        if (!PluginEnableEvent(proxyPlugin).call()) {
             return Result.FAIL
         }
 
@@ -108,7 +109,7 @@ class BukkitPluginManager : IPluginManager {
         val plugin = proxyPlugin.cast<Plugin>()
         // Bukkit-API 关闭插件
         getPluginManager().disablePlugin(plugin)
-        sender.sendLang("commands-disable-api", plugin.name)
+        sender.sendLang("commands-disable-api", plugin.name, runningPlatform.name)
 
         // 注销命令
         unregisterCommand(getPluginManager(), plugin)
