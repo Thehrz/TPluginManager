@@ -50,7 +50,7 @@ dependencies {
     compileOnly("org.spongepowered:spongeapi:8.0.0-SNAPSHOT") {
         exclude("org.apache.logging.log4j")
     }
-    compileOnly("com.velocitypowered:velocity-api:1.1.8")
+    compileOnly("com.velocitypowered:velocity-api:1.1.9")
     compileOnly(fileTree("libs"))
 }
 
