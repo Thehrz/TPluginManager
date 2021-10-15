@@ -13,7 +13,6 @@ taboolib {
     }
     install(
         "common",
-//        "common-5",
         "module-ui",
         "module-chat",
         "module-lang",
@@ -22,10 +21,9 @@ taboolib {
         "platform-bukkit",
         "platform-bungee",
         "platform-nukkit",
-//        "platform-velocity",
+        "platform-velocity",
         "platform-sponge-api7",
         "platform-sponge-api8",
-        "expansion-command-helper"
     )
 
     classifier = null
@@ -36,9 +34,9 @@ taboolib {
 repositories {
     mavenCentral()
     maven { url = uri("https://repo.codemc.org/repository/maven-public") }
-//    maven { url = uri("https://repo.spongepowered.org/maven") }
+    maven { url = uri("https://repo.spongepowered.org/maven") }
     maven { url = uri("https://repo.nukkitx.com/maven-snapshots") }
-//    maven { url = uri("https://nexus.velocitypowered.com/repository/maven-public/") }
+    maven { url = uri("https://nexus.velocitypowered.com/repository/maven-public/") }
 }
 
 dependencies {
@@ -46,11 +44,13 @@ dependencies {
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib")
     compileOnly("cn.nukkit:nukkit:2.0.0-SNAPSHOT")
     compileOnly("net.md_5.bungee:BungeeCord:1:all")
-//    compileOnly("org.spongepowered:spongeapi:7.2.0") {
-//        exclude("org.apache.logging.log4j")
-//    }
-//    compileOnly("org.spongepowered:spongeapi:8.0.0-SNAPSHOT")
-//    compileOnly("com.velocitypowered:velocity-api:1.1.8")
+    compileOnly("org.spongepowered:spongeapi:7.2.0") {
+        exclude("org.apache.logging.log4j")
+    }
+    compileOnly("org.spongepowered:spongeapi:8.0.0-SNAPSHOT") {
+        exclude("org.apache.logging.log4j")
+    }
+    compileOnly("com.velocitypowered:velocity-api:1.1.8")
     compileOnly(fileTree("libs"))
 }
 

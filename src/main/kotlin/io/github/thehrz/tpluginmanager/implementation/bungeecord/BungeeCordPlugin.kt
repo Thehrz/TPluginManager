@@ -6,25 +6,22 @@ import net.md_5.bungee.api.plugin.Plugin
 /**
  * BungeeCord平台插件类
  */
-class BungeeCordPlugin(val plugin: Plugin) : ProxyPlugin {
+class BungeeCordPlugin(override val origin: Plugin) : ProxyPlugin {
     override val name: String
-        get() = plugin.description.name
+        get() = origin.description.name
 
     override val isEnabled: Boolean
         get() = true
 
     override val version: String
-        get() = plugin.description.version
+        get() = origin.description.version
 
     override val authors: List<String>
-        get() = listOf(plugin.description.author)
+        get() = listOf(origin.description.author)
 
     override val depend: List<String>
-        get() = plugin.description.depends.toList()
+        get() = origin.description.depends.toList()
 
     override val softDepend: List<String>
-        get() = plugin.description.softDepends.toList()
-
-    override val origin: Any
-        get() = plugin
+        get() = origin.description.softDepends.toList()
 }

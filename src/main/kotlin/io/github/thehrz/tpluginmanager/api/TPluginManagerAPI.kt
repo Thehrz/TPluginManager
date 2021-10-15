@@ -22,7 +22,7 @@ fun adaptPlugin(origin: Any): ProxyPlugin =
         is org.bukkit.plugin.Plugin -> BukkitPlugin(origin)
         is cn.nukkit.plugin.Plugin -> NukkitPlugin(origin)
         is net.md_5.bungee.api.plugin.Plugin -> BungeeCordPlugin(origin)
-        else -> throw RuntimeException("not support")
+        else -> throw RuntimeException("Unsupported platform: ${runningPlatform.name}")
     }
 
 /**
@@ -47,5 +47,5 @@ val pluginManagerImpl: IPluginManager
             Platform.BUKKIT -> BukkitPluginManager()
             Platform.BUNGEE -> BungeeCordPluginManager()
             Platform.NUKKIT -> NukkitPluginManager()
-            else -> throw RuntimeException("not support")
+            else -> throw RuntimeException("Unsupported platform: ${runningPlatform.name}")
         }

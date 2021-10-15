@@ -6,25 +6,22 @@ import org.bukkit.plugin.Plugin
 /**
  * Bukkit平台插件类
  */
-class BukkitPlugin(val plugin: Plugin) : ProxyPlugin {
+class BukkitPlugin(override val origin: Plugin) : ProxyPlugin {
     override val name: String
-        get() = plugin.name
+        get() = origin.name
 
     override val isEnabled: Boolean
-        get() = plugin.isEnabled
+        get() = origin.isEnabled
 
     override val version: String
-        get() = plugin.description.version
+        get() = origin.description.version
 
     override val authors: List<String>
-        get() = plugin.description.authors
+        get() = origin.description.authors
 
     override val depend: List<String>
-        get() = plugin.description.depend
+        get() = origin.description.depend
 
     override val softDepend: List<String>
-        get() = plugin.description.softDepend
-
-    override val origin: Any
-        get() = plugin
+        get() = origin.description.softDepend
 }
