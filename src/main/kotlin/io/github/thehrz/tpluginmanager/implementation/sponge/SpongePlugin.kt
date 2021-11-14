@@ -5,7 +5,7 @@ import org.spongepowered.plugin.PluginContainer
 
 class SpongePlugin(override val origin: PluginContainer) : ProxyPlugin {
     override val name: String
-        get() = origin.metadata().id()
+        get() = origin.metadata().name().get()
 
     override val isEnabled: Boolean
         get() = true
