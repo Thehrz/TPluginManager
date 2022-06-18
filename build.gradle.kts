@@ -44,10 +44,10 @@ dependencies {
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib")
     compileOnly("cn.nukkit:nukkit:2.0.0-SNAPSHOT")
     compileOnly("net.md_5.bungee:BungeeCord:1:all")
-    compileOnly("org.spongepowered:spongeapi:7.3.0") {
+    compileOnly("org.spongepowered:spongeapi:9.0.0") {
         exclude("org.apache.logging.log4j")
     }
-    compileOnly("org.spongepowered:spongeapi:8.0.0-SNAPSHOT") {
+    compileOnly("org.spongepowered:spongeapi:9.0.0") {
         exclude("org.apache.logging.log4j")
     }
     compileOnly("com.velocitypowered:velocity-api:3.1.0")
