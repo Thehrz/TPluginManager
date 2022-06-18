@@ -47,7 +47,7 @@ dependencies {
     compileOnly("org.spongepowered:spongeapi:7.3.0") {
         exclude("org.apache.logging.log4j")
     }
-    compileOnly("org.spongepowered:spongeapi:8.0.0-SNAPSHOT") {
+    compileOnly("org.spongepowered:spongeapi:8.1.0") {
         exclude("org.apache.logging.log4j")
     }
     compileOnly("com.velocitypowered:velocity-api:3.1.0")
